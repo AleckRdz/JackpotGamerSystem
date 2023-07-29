@@ -101,7 +101,7 @@ ul {
 }
 
 p {
-  font-size: 15px;
+  font-size: 20px;
   line-height: 28px;
   color: #7a7a7a;
 }
@@ -240,7 +240,7 @@ Header Style
   -webkit-transition: all .5s ease 0s;
   -moz-transition: all .5s ease 0s;
   -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s;
+  transition: all .5s ease 0s;  
 }
 
 .header-area {
@@ -254,7 +254,7 @@ Header Style
   -webkit-transition: all .5s ease 0s;
   -moz-transition: all .5s ease 0s;
   -o-transition: all .5s ease 0s;
-  transition: all .5s ease 0s;
+  transition: all .5s ease 0s;  
 }
 
 .header-area .main-nav {
@@ -274,6 +274,8 @@ Header Style
 
 .header-area .main-nav .logo img {
   max-width: 142px;
+  border-radius: 50%; /* Make the image circular */
+  border: 5px solid #000; /* Add a black border */
 }
 
 .background-header .main-nav .logo {
@@ -931,7 +933,7 @@ Banner Style
 */
 
 .main-banner {
-  background-image: url(../images/banner-bg.jpg);
+  background-image: url(../img/main-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;

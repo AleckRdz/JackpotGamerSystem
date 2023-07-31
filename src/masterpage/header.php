@@ -40,8 +40,8 @@
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
-                                <li><a href="index.php" class="active">Inicio</a></li>
-                                <li><a href="contests.php" class="active">Preg. Frec.</a></li>
+                                <li><a href="index.php#inicio" class="active">Inicio</a></li>
+                                <li><a href="index.php#preguntasFrecuentes" class="active">Preg. Frec.</a></li>
                                 <!-- <li class="has-sub">
                                     <a href="javascript:void(0)">Rifas</a>
                                     <ul class="sub-menu">
@@ -49,11 +49,11 @@
                                         <li><a href="contest-details.php">Pasadas</a></li>
                                     </ul>
                                 </li> -->
-                                <li><a href="categories.php">Nosotros</a></li>
-                                <li><a href="users.php">Contacto</a></li>
+                                <li><a href="index.php#sobreNosotros">Nosotros</a></li>
+                                <li><a href="index.php#contacto">Contacto</a></li>
                             </ul>
                             <div class="border-button">
-                                <a id="modal_trigger" href="#modal" class="sign-in-up"><i class="fa-solid fa-ticket"></i></i> Boletos</a>
+                                <a href="boletos.php" class="sign-in-up"><i class="fa-solid fa-ticket"></i> Boletos</a>
                             </div>
                             <a class='menu-trigger'>
                                 <span>Menu</span>

@@ -186,10 +186,6 @@ body {
   color: #00bdfe;
 }
 
-section {
-  margin-top: 120px;
-}
-
 .section-heading {
   position: relative;
   z-index: 2;
@@ -222,6 +218,19 @@ section {
   margin-top: 30px;
 }
 
+.outlined-text {
+  font-size: 24px; /* Adjust the font size as needed */
+  color: #fff; /* Set the text color */
+  text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff;
+  /* The text-shadow property takes multiple values, each representing an offset and color for the shadow.
+     The first two values (-1px -1px) represent the horizontal and vertical offsets for the top-left shadow.
+     The next two values (1px -1px) represent the top-right shadow.
+     The next two values (-1px 1px) represent the bottom-left shadow.
+     The last two values (1px 1px) represent the bottom-right shadow.
+     The offset values can be adjusted to control the size of the outline.
+     The color (#000 in this example) represents the color of the outline.
+  */
+}
 
 /* 
 ---------------------------------------------
@@ -1023,7 +1032,7 @@ section.featured-items {
   position: relative;
 }
 
-.featured-items .item .thumb img {
+.featured-items .item .thumb img {  
   border-radius: 15px;
 }
 
@@ -1480,7 +1489,7 @@ page heading
 */
 
 .page-heading {
-  background-image: url(../images/heading-bg.jpg);
+  background-image: url(../../assets/img/main-bg.jpg);
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -2207,8 +2216,8 @@ Categories Page
 }
 
 .testimonials {
-  background-color: #f1fbff;
-  padding: 120px 0px;
+  background-color: #fff;
+  padding: 85px 0px 40px 0px;
 }
 
 .testimonials .item {
@@ -2230,9 +2239,9 @@ Categories Page
 }
 
 .testimonials .item p {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 600;
-  color: #afafaf;
+  color: #000000;
 }
 
 .testimonials .item .content .left-content {

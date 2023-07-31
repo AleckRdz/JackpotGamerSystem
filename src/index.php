@@ -1,7 +1,7 @@
 <?php include_once("masterpage/header.php"); ?>
 
 <!-- ***** Main Banner Area Start ***** -->
-<div class="main-banner">
+<div class="main-banner" id="inicio">
   <div class="container">
     <div class="row">
       <div class="col-lg-10 offset-lg-1">
@@ -10,11 +10,11 @@
           <p>¡Bienvenidos a Jackpotgamermx!</p>
           <div class="buttons">
             <div class="big-border-button">
-              <a href="contests.html">Comprar Boletos</a>
+              <a href="boletos.php">Comprar Boletos</a>
             </div>
-            <!-- <div class="icon-button">
-              <a href="https://youtube.com/templatemo" target="_blank"><i class="fa fa-play"></i> Watch Our Video Now</a>
-            </div> -->
+            <div class="icon-button">
+              <a href="https://fb.watch/m7C1uBlO5V/" target="_blank"><i class="fa fa-play"></i> Ver Live</a>
+            </div>
           </div>
         </div>
       </div>
@@ -23,7 +23,7 @@
 </div>
 <!-- ***** Main Banner Area End ***** -->
 
-
+<!-- ***** Carousel section Start ***** -->
 <section class="featured-items" id="featured-items">
   <div class="container">
     <div class="row">
@@ -31,137 +31,22 @@
         <div class="owl-features owl-carousel" style="position: relative; z-index: 5;">
           <div class="item">
             <div class="thumb">
-              <img src="assets/images/featured-01.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $1.000 + Camera Nikon</li>
-                  </ul>
-                </div>
-              </div>
+              <img src="assets/img/slider1.jpg" alt="">
             </div>
           </div>
           <div class="item">
             <div class="thumb">
-              <img src="assets/images/featured-02.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Smile In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Thomas Eddy</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $1,200 + Canon EOS R7</li>
-                  </ul>
-                </div>
-              </div>
+              <img src="assets/img/slider3.jpg" alt="">
             </div>
           </div>
           <div class="item">
             <div class="thumb">
-              <img src="assets/images/featured-03.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Happy In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $1,800 + Canon EOS R6</li>
-                  </ul>
-                </div>
-              </div>
+              <img src="assets/img/slider4.jpg" alt="">
             </div>
           </div>
           <div class="item">
             <div class="thumb">
-              <img src="assets/images/featured-01.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Thomas Eddy</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $8,400 + Canon EOS R1</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumb">
-              <img src="assets/images/featured-02.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Run In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $5,500 + Canon EOS R3</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumb">
-              <img src="assets/images/featured-03.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Stay In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Thomas Eddy</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $4,400 + Canon EOS R5</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumb">
-              <img src="assets/images/featured-01.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Walk In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $3,800 + Canon EOS R6</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumb">
-              <img src="assets/images/featured-02.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Shoot In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $2,400 + Canon EOS R7</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="thumb">
-              <img src="assets/images/featured-03.jpg" alt="">
-              <div class="hover-effect">
-                <div class="content">
-                  <h4>Fly In The Nature <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> <span>(4.5)</span></h4>
-                  <ul>
-                    <li><span>Contest Winner:</span> Vincent Adam</li>
-                    <li><span>Contest Author:</span> Anthony Soft</li>
-                    <li><span>Awards:</span> $1,200 + Canon EOS R10</li>
-                  </ul>
-                </div>
-              </div>
+              <img src="assets/img/slider2.jpg" alt="">
             </div>
           </div>
         </div>
@@ -169,252 +54,122 @@
     </div>
   </div>
 </section>
+<!-- ***** Carousel section End ***** -->
 
-
-<section class="popular-categories">
+<!-- ***** Preguntas frecuentes Start ***** -->
+<section class="testimonials" id="preguntasFrecuentes">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-lg-6">
-        <div class="section-heading">
-          <h6>Our Categories</h6>
-          <h4>Check Out <em>Popular</em> Contest <em>Categories</em></h4>
+      <div class="col-lg-12">
+        <div class="section-heading text-center">
+          <h4>PREGUNTAS <em>FRECUENTES</em></h4>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="main-button">
-          <a href="categories.html">Discover All Categories</a>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-lg-4 col-sm-6">
         <div class="popular-item">
           <div class="top-content">
-            <div class="icon">
-              <img src="assets/images/icon-01.png" alt="">
-            </div>
             <div class="right">
-              <h4>Nature Pic Contest</h4>
-              <span><em>126</em> Available Contests</span>
+              <h4 class="text-center">¿Cómo se elige a los ganadores?</h4>
+              <span>Todos nuestros sorteos se realizan en base a la <a href="https://www.lotenal.gob.mx">Lotería Nacional para la Asistencia Pública mexicana.​</a>
+                <br>
+                El ganador será el participante cuyo número de boleto coincida con las últimas cifras del primer premio ganador de la Lotería Nacional.</span>
             </div>
-          </div>
-          <div class="thumb">
-            <img src="assets/images/popular-01.png" alt="">
-            <span class="category">Top Contest</span>
-            <span class="likes"><i class="fa fa-heart"></i> 256</span>
-          </div>
-          <div class="border-button">
-            <a href="contest-details.html">Browse Nature Pic Contests</a>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-lg-4 col-sm-6">
         <div class="popular-item">
           <div class="top-content">
-            <div class="icon">
-              <img src="assets/images/icon-02.png" alt="">
-            </div>
             <div class="right">
-              <h4>Random Pic Contest</h4>
-              <span><em>116</em> Available Contests</span>
+              <h4 class="text-center">¿Dónde se publica a los ganadores?</h4>
+              <span>En nuestra página oficial de Facebook <a href="https://www.facebook.com/Jackpotgamermx">Jackpot Gamer</a> puedes encontrar todos y cada uno de nuestros sorteos anteriores, así como las transmisiones en vivo con Lotería Nacional y las entregas de premios a los ganadores!</span>
             </div>
-          </div>
-          <div class="thumb">
-            <img src="assets/images/popular-02.png" alt="">
-            <span class="category">Top Contest</span>
-            <span class="likes"><i class="fa fa-heart"></i> 256</span>
-          </div>
-          <div class="border-button">
-            <a href="contest-details.html">Browse Random Pic Contests</a>
           </div>
         </div>
       </div>
-      <div class="col-lg-3 col-sm-6">
+      <div class="col-lg-4 col-sm-6">
         <div class="popular-item">
           <div class="top-content">
-            <div class="icon">
-              <img src="assets/images/icon-03.png" alt="">
-            </div>
             <div class="right">
-              <h4>Portrait Pic Contest</h4>
-              <span><em>164</em> Available Contests</span>
+              <h4 class="text-center">¿Qué sucede cuando el número ganador es un boleto no vendido?</h4>
+              <span>Se elige un nuevo ganador realizando la misma dinámica en otra fecha cercana (se anunciará la nueva fecha).
+                <br>
+                Esto significa que, ¡Tendrías el doble de oportunidades de ganar con tu mismo boleto!</span>
             </div>
-          </div>
-          <div class="thumb">
-            <img src="assets/images/popular-03.png" alt="">
-            <span class="category">Top Contest</span>
-            <span class="likes"><i class="fa fa-heart"></i> 256</span>
-          </div>
-          <div class="border-button">
-            <a href="contest-details.html">Browse Portrait Pic Contests</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-3 col-sm-6">
-        <div class="popular-item">
-          <div class="top-content">
-            <div class="icon">
-              <img src="assets/images/icon-04.png" alt="">
-            </div>
-            <div class="right">
-              <h4>Space Pic Contest</h4>
-              <span><em>135</em> Available Contests</span>
-            </div>
-          </div>
-          <div class="thumb">
-            <img src="assets/images/popular-04.png" alt="">
-            <span class="category">Top Contest</span>
-            <span class="likes"><i class="fa fa-heart"></i> 256</span>
-          </div>
-          <div class="border-button">
-            <a href="contest-details.html">Browse Space Pic Contests</a>
           </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+<!-- ***** Preguntas frecuentes End ***** -->
 
-<section class="closed-contests">
+<!-- ***** Sobre Nosotros Start ***** -->
+<section class="testimonials" id="sobreNosotros" style="background-image: url(assets/img/fondoSection.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="section-heading text-center outlined-text">
+          <h4>SOBRE<em> NOSOTROS</em></h4>
+        </div>
+        <div class="col-lg-8 offset-lg-2">
+          <div class="owl-testimonials owl-carousel">
+            <div class="item" style="background-color: white;">
+              <div class="content">
+                <div class="left-content">
+                  <p>En JackpotGamer entendemos tu pasión por los videojuegos y queremos ayudarte a llevar tu experiencia de juego al siguiente nivel.<br>
+                    Nos hemos dedicado a crear una plataforma emocionante donde puedes participar en sorteos y tener la oportunidad de ganar increíbles set ups gaming, así como otros premios relacionados con el mundo del gaming.</p>
+                  <h4>JackpotGamer® 2023</h4>
+                  <span>Ciuda Victoria, Tamps.</span>
+                </div>
+                <div class="image">
+                  <img src="assets/img/jackpotGamer.jpg" alt="logoJackpotGamer">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<!-- ***** Sobre Nosotros End ***** -->
+
+<!-- ***** Contacto Start ***** -->
+<section class="contact-us testimonials" id="contacto">
   <div class="container">
     <div class="row">
       <div class="col-lg-12">
         <div class="section-heading text-center">
-          <h6>Closed Photography Contests</h6>
-          <h4><em>Previous Contests</em> With Handpicked <em>Winners</em></h4>
+          <h4>CONTACTO</h4>
         </div>
       </div>
-      <div class="col-lg-12">
-        <div class="owl-features owl-carousel" style="position: relative; z-index: 5;">
-          <div class="item">
-            <div class="closed-item">
-              <div class="thumb">
-                <img src="assets/images/closed-01.jpg" alt="">
-                <span class="winner"><em>Winner:</em> Anthony Soft</span>
-                <span class="price"><em>Award :</em> $1,600</span>
-              </div>
-              <div class="down-content">
-                <div class="row">
-                  <div class="col-7">
-                    <h4>88 Participants <br><span>Number Of Artists</span></h4>
-                  </div>
-                  <div class="col-5">
-                    <h4 class="pics">320 Pictures <br><span>Submited Pics</span></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="closed-item">
-              <div class="thumb">
-                <img src="assets/images/closed-02.jpg" alt="">
-                <span class="winner"><em>Winner:</em> Anthony Soft</span>
-                <span class="price"><em>Award :</em> $4,200</span>
-              </div>
-              <div class="down-content">
-                <div class="row">
-                  <div class="col-7">
-                    <h4>96 Participants <br><span>Number Of Artists</span></h4>
-                  </div>
-                  <div class="col-5">
-                    <h4 class="pics">410 Pictures <br><span>Submited Pics</span></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="item">
-            <div class="closed-item">
-              <div class="thumb">
-                <img src="assets/images/closed-03.jpg" alt="">
-                <span class="winner"><em>Winner:</em> Anthony Soft</span>
-                <span class="price"><em>Award :</em> $3,200</span>
-              </div>
-              <div class="down-content">
-                <div class="row">
-                  <div class="col-7">
-                    <h4>74 Participants <br><span>Number Of Artists</span></h4>
-                  </div>
-                  <div class="col-5">
-                    <h4 class="pics">284 Pictures <br><span>Submited Pics</span></h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+      <div class="col-lg-4">
+        <div class="info-item">
+          <i class="fa fa-phone"></i>
+          <h4>Número Telefónico</h4>
+          <span><a href="tel: +528341458065">(+52) 834 145 8065</a></span>
         </div>
       </div>
-      <div class="col-lg-12">
-        <div class="border-button text-center">
-          <a href="contests.html">Browse Open Contests</a>
+      <div class="col-lg-4">
+        <div class="info-item">
+          <i class="fa fa-envelope"></i>
+          <h4>Correo Electrónico</h4>
+          <span><a href="mailto: gamersorteomx@gmail.com">gamersorteomx@gmail.com</a></span>
         </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="info-item">
+          <i class="fa fa-map-marked"></i>
+          <h4>Ubicación</h4>
+          <span><a href="https://goo.gl/maps/pimYRwmfdwPzMWeKA">Ciudad Victoria, Tamaulipas, México.</a></span>
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d58434.830629132186!2d-99.18462342434849!3d23.741069837122886!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x86795132d7b7f193%3A0x42b200757d7f08d6!2sCd%20Victoria%2C%20Tamps.!5e0!3m2!1ses-419!2smx!4v1689911438876!5m2!1ses-419!2smx" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
       </div>
     </div>
   </div>
 </section>
-
-<section class="pricing-plans">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-12">
-        <div class="section-heading text-center">
-          <h6>Our Pricing</h6>
-          <h4>Photography <em>Contest Plans</em> and Price <em>Awards</em></h4>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="pricing-item">
-          <img src="assets/images/pricing-01.jpg" alt="">
-          <h4>Basic Plan</h4>
-          <ul class="first-plan">
-            <li>Lorem Ipsum Dolores Sonte</li>
-            <li>Songe Lorem Ipsum Dol</li>
-            <li>Matrios Venga Heptuss</li>
-            <li>Denim Sriracha Kogi</li>
-            <li>Digital Photography Awards</li>
-          </ul>
-          <span class="price">$25 USD</span>
-          <div class="border-button">
-            <a href="#">Choose This Plan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="pricing-item">
-          <img src="assets/images/pricing-02.jpg" alt="">
-          <h4>Standard Plan</h4>
-          <ul class="second-plan">
-            <li>Lorem Ipsum Dolores Sonte</li>
-            <li>Songe Lorem Ipsum Dol</li>
-            <li>Matrios Venga Heptuss</li>
-            <li>Denim Sriracha Kogi</li>
-            <li>Digital Photography Awards</li>
-          </ul>
-          <span class="price">$45 USD</span>
-          <div class="border-button">
-            <a href="#">Choose This Plan</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4">
-        <div class="pricing-item">
-          <img src="assets/images/pricing-03.jpg" alt="">
-          <h4>Advanced Plan</h4>
-          <ul class="third-plan">
-            <li>Lorem Ipsum Dolores Sonte</li>
-            <li>Songe Lorem Ipsum Dol</li>
-            <li>Matrios Venga Heptuss</li>
-            <li>Denim Sriracha Kogi</li>
-            <li>Digital Photography Awards</li>
-          </ul>
-          <span class="price">$85 USD</span>
-          <div class="border-button">
-            <a href="#">Choose This Plan</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
+<!-- ***** Contacto End ***** -->
 
 <?php include_once("masterpage/footer.php"); ?>

@@ -1,5 +1,4 @@
 <?php include 'masterpage/header.php'; ?>
-
 <!-- Content wrapper -->
 <div class="content-wrapper">
   <!-- Content -->

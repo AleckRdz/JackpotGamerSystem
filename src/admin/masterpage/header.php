@@ -43,6 +43,52 @@
     </head>
 
     <body>
+        <?php
+        session_start(); // Start the session
+
+        // Check if the session variable 'user_id' is NOT set (user is not logged in)
+        if (!isset($_SESSION["user_id"])) {
+            // Redirect the user to the login page (login.php)
+            header("Location: login.php");
+            exit();
+        }
+        // Replace 'jackpotGamer.db' with the path to your existing SQLite database file
+        $db_path = '../db/jackpotGamer.db';
+
+        try {
+            // Connect to the database
+            $db = new SQLite3($db_path);
+
+            // Prepare the SQL statement to retrieve the user's name based on 'user_id'
+            $query = "SELECT id, nombre, rol FROM usuarios WHERE id = :user_id";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':user_id', $_SESSION["user_id"], SQLITE3_INTEGER);
+
+            // Execute the statement
+            $result = $stmt->execute();
+            $user = $result->fetchArray(SQLITE3_ASSOC);
+
+            // Get the user's name
+            $user_name = $user["nombre"];
+
+            //get the user's role
+            $user_role = $user["rol"];
+
+            //get the user's id
+            $user_id = $user["id"];
+
+            // Trim the name if it contains more than one word
+            $name_parts = explode(' ', $user_name);
+            if (count($name_parts) > 1) {
+                $formatted_name = $name_parts[0][0] . '. ' . array_pop($name_parts);
+            } else {
+                $formatted_name = $user_name;
+            }
+        } catch (Exception $e) {
+            echo "Error: " . $e->getMessage();
+        }
+        ?>
+
         <!-- Layout wrapper -->
         <div class="layout-wrapper layout-content-navbar">
             <div class="layout-container">
@@ -107,23 +153,18 @@
                             <!-- Search -->
                             <div class="navbar-nav align-items-center">
                                 <div class="nav-item d-flex align-items-center">
-                                    <i class="bx bx-search fs-4 lh-0"></i>
-                                    <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search..." />
+                                    ¡Bienvenido, <?php echo $user_name; ?>!
                                 </div>
                             </div>
                             <!-- /Search -->
 
                             <ul class="navbar-nav flex-row align-items-center ms-auto">
-                                <!-- Place this tag where you want the button to render. -->
-                                <li class="nav-item lh-1 me-3">
-                                    <a class="github-button" href="https://github.com/themeselection/sneat-php-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-php-admin-template-free on GitHub">Star</a>
-                                </li>
 
                                 <!-- User -->
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                            <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -132,12 +173,12 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
-                                                        <span class="fw-semibold d-block">John Doe</span>
-                                                        <small class="text-muted">Admin</small>
+                                                        <span class="fw-semibold d-block"><?php echo htmlspecialchars($formatted_name); ?></span>
+                                                        <small class="text-muted"><?php echo $user_role ?></small>
                                                     </div>
                                                 </div>
                                             </a>
@@ -148,31 +189,22 @@
                                         <li>
                                             <a class="dropdown-item" href="#">
                                                 <i class="bx bx-user me-2"></i>
-                                                <span class="align-middle">My Profile</span>
+                                                <span class="align-middle">Mi Perfil</span>
                                             </a>
                                         </li>
                                         <li>
                                             <a class="dropdown-item" href="#">
                                                 <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Settings</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                                <span class="d-flex align-items-center align-middle">
-                                                    <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                                    <span class="flex-grow-1 align-middle">Billing</span>
-                                                    <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                                                </span>
+                                                <span class="align-middle">Configuraciones</span>
                                             </a>
                                         </li>
                                         <li>
                                             <div class="dropdown-divider"></div>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="auth-login-basic.php">
+                                            <a class="dropdown-item" href="procedures/logout.php">
                                                 <i class="bx bx-power-off me-2"></i>
-                                                <span class="align-middle">Log Out</span>
+                                                <span class="align-middle">Cerrar Sesión</span>
                                             </a>
                                         </li>
                                     </ul>

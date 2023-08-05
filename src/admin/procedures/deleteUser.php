@@ -3,20 +3,32 @@
 $db_path = '../../db/jackpotGamer.db';
 
 try {
-    // Connect to the database
-    $db = new SQLite3($db_path);
+    // Check if the user ID is provided in the POST request
+    if (isset($_POST['id'])) {
+        $user_id_to_delete = $_POST['id'];
 
-    // Replace 'USER_ID_TO_DELETE' with the actual user_id you want to delete
-    $user_id_to_delete = 1;
+        // Connect to the database
+        $db = new SQLite3($db_path);
 
-    // SQL query to delete a specific user from the 'usuarios' table
-    $query = "DELETE FROM usuarios WHERE id = :user_id";
-    $stmt = $db->prepare($query);
-    $stmt->bindValue(':user_id', $user_id_to_delete, SQLITE3_INTEGER);
-    $stmt->execute();
+        // SQL query to delete the user from the 'usuarios' table
+        $query = "DELETE FROM usuarios WHERE id = :user_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':user_id', $user_id_to_delete, SQLITE3_INTEGER);
+        $stmt->execute();
 
-    echo "User with ID $user_id_to_delete has been deleted successfully!";
+        $response = array('status' => 1, 'message' => 'Usuario eliminado correctamente.');
+    } else {
+        // If user ID is not provided in the request, return an error message
+        $response = array('status' => 0, 'message' => 'Ha ocurrido un error.');
+    }
+    // Return the JSON response
+    header('Content-Type: application/json');
+    echo json_encode($response);
 } catch (Exception $e) {
-    echo "Error: " . $e->getMessage();
+    // Error occurred, return an error code (e.g., -1)
+    $response = array('status' => -1, 'message' => 'Error: ' . $e->getMessage());
+
+    // Return the JSON response
+    header('Content-Type: application/json');
+    echo json_encode($response);
 }
-?>

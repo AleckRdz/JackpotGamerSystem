@@ -11,7 +11,7 @@
         <meta name="description" content="" />
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="../../assets/img/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -112,9 +112,9 @@
 
                     <ul class="menu-inner py-1">
                         <!-- Dashboard -->
-                        <li class="menu-item active">
+                        <li class="menu-item">
                             <a href="index.php" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-home"></i>
+                                <i class="menu-icon tf-icons fa-solid fa-house"></i>
                                 <div data-i18n="Analytics">Inicio</div>
                             </a>
                         </li>
@@ -123,16 +123,29 @@
                             <span class="menu-header-text">Módulos</span>
                         </li>
                         <li class="menu-item">
-                            <a href="cards-basic.php" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <a href="boletos.php" class="menu-link">
+                                <i class="menu-icon tf-icons fa-solid fa-ticket"></i>
                                 <div data-i18n="Basic">Boletos</div>
                             </a>
                         </li>
                         <li class="menu-item">
-                            <a href="cards-basic.php" class="menu-link">
-                                <i class="menu-icon tf-icons bx bx-collection"></i>
+                            <a href="rifas.php" class="menu-link">
+                                <i class="menu-icon tf-icons fa-solid fa-trophy"></i>
                                 <div data-i18n="Basic">Rifas</div>
                             </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                <i class="menu-icon tf-icons fa-solid fa-gear"></i>
+                                <div data-i18n="Account Settings">Configuraciones</div>
+                            </a>
+                            <ul class="menu-sub">
+                                <li class="menu-item">
+                                    <a href="usuarios.php" class="menu-link">
+                                        <div data-i18n="Account">Usuarios</div>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </aside>
@@ -164,7 +177,11 @@
                                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                                         <div class="avatar avatar-online">
-                                            <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                            <?php if (file_exists("assets/img/avatars/$user_id.jpg")) { ?>
+                                                <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                            <?php } else { ?>
+                                                <img src="assets/img/avatars/default.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                            <?php } ?>
                                         </div>
                                     </a>
                                     <ul class="dropdown-menu dropdown-menu-end">
@@ -173,7 +190,11 @@
                                                 <div class="d-flex">
                                                     <div class="flex-shrink-0 me-3">
                                                         <div class="avatar avatar-online">
-                                                            <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <?php if (file_exists("assets/img/avatars/$user_id.jpg")) { ?>
+                                                                <img src="assets/img/avatars/<?php echo $user_id ?>.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <?php } else { ?>
+                                                                <img src="assets/img/avatars/default.jpg" alt class="w-px-40 h-auto rounded-circle" />
+                                                            <?php } ?>
                                                         </div>
                                                     </div>
                                                     <div class="flex-grow-1">
@@ -195,7 +216,7 @@
                                         <li>
                                             <a class="dropdown-item" href="#">
                                                 <i class="bx bx-cog me-2"></i>
-                                                <span class="align-middle">Configuraciones</span>
+                                                <span class="align-middle">Configuración</span>
                                             </a>
                                         </li>
                                         <li>

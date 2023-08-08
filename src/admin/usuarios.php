@@ -19,7 +19,7 @@
     <div class="card">
         <div class="card-body">
             <div class="table-responsive">
-                <table id="example1" class="table table-hover table-striped"></table>
+                <table id="tablaUsuarios" class="table table-hover table-striped"></table>
             </div>
         </div>
     </div>
@@ -95,15 +95,11 @@
     </div>
 </div>
 
-<!-- Include jQuery library -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
 <!-- Your other scripts and libraries -->
-
 <script>
     $(document).ready(function() {
         // Load the table with the existing data
-        $("#example1").load("procedures/fetchUserTable.php");
+        $("#tablaUsuarios").load("procedures/fetchUserTable.php");
 
         //function when btnDelete is clicked to show modalDelete
         $(document).on("click", ".btn-delete", function() {
@@ -193,7 +189,7 @@
                         // Hide the modal popup
                         $("#basicModal").modal("hide");
 
-                        $("#example1").load("procedures/fetchUserTable.php");
+                        $("#tablaUsuarios").load("procedures/fetchUserTable.php");
 
                     } else {
                         // Error notification
@@ -212,7 +208,7 @@
         $.ajax({
             type: "POST",
             url: "procedures/deleteUser.php", // Replace with the URL of your PHP file for adding the user
-            data: {
+            data: {                
                 id: id
             },
             success: function(response) {
@@ -229,7 +225,7 @@
                     $("#deleteModal").modal("hide");
 
                     //reload table data
-                    $("#example1").load("procedures/fetchUserTable.php");
+                    $("#tablaUsuarios").load("procedures/fetchUserTable.php");
 
                 } else {
                     // Error notification

@@ -4,11 +4,6 @@ $db_path = '../../db/jackpotGamer.db';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Retrieve the form data from the POST request
-    if (isset($_POST['id'])) {
-        $id = $_POST['id'];
-    } else {
-        $id = '';
-    }    
     $name = $_POST['name'];
     $user = $_POST['user'];
     $email = $_POST['email'];
@@ -81,4 +76,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header('Content-Type: application/json');
     echo json_encode($response);
 }
+// Close the database connection
+$db->close();
 ?>

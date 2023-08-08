@@ -45,4 +45,7 @@ function redirectWithErrorMessage($message) {
     header("Location: ../login.php?error=" . urlencode($message));
     exit();
 }
+
+// Close the database connection
+$db->close();
 ?>

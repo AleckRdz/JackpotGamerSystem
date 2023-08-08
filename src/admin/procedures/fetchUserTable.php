@@ -22,7 +22,7 @@ echo "
         // SQL query to select all users from the 'usuarios' table
         $query = "SELECT * FROM usuarios";
         $result = $db->query($query);
-
+        
         // Iterate over the results and generate the table rows dynamically
         while ($user = $result->fetchArray(SQLITE3_ASSOC)) {
             echo '<tr>';
@@ -71,4 +71,6 @@ echo "
                 <th>Acciones</th>
             </tr>
         </tfoot>";
+// Close the database connection
+$db->close(); 
 ?>

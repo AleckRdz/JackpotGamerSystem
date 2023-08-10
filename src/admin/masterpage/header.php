@@ -11,7 +11,7 @@
         <meta name="description" content="" />
 
         <!-- Favicon -->
-        <link rel="icon" type="image/x-icon" href="../assets/img/favicon.png" />
+        <link rel="icon" type="image/x-icon" href="assets/img/favicon/favicon.ico" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -32,8 +32,6 @@
 
         <link rel="stylesheet" href="assets/vendor/libs/apex-charts/apex-charts.css" />
 
-        <!-- Page CSS -->
-
         <!-- Helpers -->
         <script src="assets/vendor/js/helpers.js"></script>
 
@@ -42,7 +40,12 @@
         <script src="assets/js/config.js"></script>
 
         <!-- Include jQuery library -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+
+        <!-- include datatables css and js files -->
+        <link href="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.css" rel="stylesheet">
+        <script src="https://cdn.datatables.net/v/bs5/dt-1.13.6/datatables.min.js"></script>
+
     </head>
 
     <body>
@@ -140,7 +143,7 @@
                         <li class="menu-item">
                             <a href="javascript:void(0);" class="menu-link menu-toggle">
                                 <i class="menu-icon tf-icons fa-solid fa-gear"></i>
-                                <div data-i18n="Account Settings">Configuraciones</div>
+                                <div data-i18n="Account Settings">Configuración</div>
                             </a>
                             <ul class="menu-sub">
                                 <li class="menu-item">

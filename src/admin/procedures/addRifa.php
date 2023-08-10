@@ -17,6 +17,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connect to the database
         $db = new SQLite3($db_path);
+
+        //deactivate all raffles if this is active
+        if ($estado == 1) {
+            $query = "UPDATE rifas SET estado = 0 WHERE estado = 1";
+            $stmt = $db->prepare($query);
+            $result = $stmt->execute();
+        }
         
         // Prepare the SQL statement to insert the new user into the 'usuarios' table
         $query = "INSERT INTO rifas (producto, cantidadBoletos, precioBoleto, oportunidades, fechaRifa, estado) VALUES (:producto, :cantidadBoletos, :precioBoleto, :oportunidades, :fechaRifa, :estado)";
@@ -30,8 +37,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Execute the statement to insert the rifa
         $result = $stmt->execute();
-
+        $idRifa = $db->lastInsertRowID();
+        
         if ($result) {
+            //assign the most recent idRifa to a variable
+            //insert into boletos table the number of rows specified in cantidadBoletos
+            for($i = 0; $i < $cantidadBoletos; $i++) {
+                //add zeros to the left of the number until it haves 5 digits
+                $numero = str_pad($i, 5, '0', STR_PAD_LEFT);
+                $emptyCol = '';
+                $estado = 0;
+                $query = "INSERT INTO boletos (numero, nombre, telefono, fechaApartado, fechaPagado, estado, edicion, origen) VALUES (:numero, :nombre, :telefono, :fechaApartado, :fechaPagado, :estado, (SELECT idRifa FROM rifas WHERE idRifa = :idRifa), :origen)";
+                $stmt2 = $db->prepare($query);
+                $stmt2->bindValue(':numero', $numero, SQLITE3_TEXT);
+                $stmt2->bindValue(':nombre', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':telefono', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':fechaApartado', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':fechaPagado', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':estado', $estado, SQLITE3_TEXT);
+                $stmt2->bindValue(':origen', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':idRifa', $idRifa, SQLITE3_TEXT);
+                $result2 = $stmt2->execute();
+                if(!$result2) {
+                    // Failed to add the rifa, return an error code (e.g., 0)
+                    $response = array('status' => 0, 'message' => 'Ha ocurrido un error.');
+                    // Return the JSON response
+                    header('Content-Type: application/json');
+                    echo json_encode($response);
+                    exit();
+                }
+            }
+
             // Rifa added successfully, return a success code (e.g., 1)
             $response = array('status' => 1, 'message' => 'Rifa creada correctamente.');
             

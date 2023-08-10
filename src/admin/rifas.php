@@ -10,7 +10,7 @@
             <li class="breadcrumb-item active">Rifas</li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#basicModal">
+    <button type="button" class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal" data-bs-target="#basicModal">
         <i class="fas fa-plus"></i> Agregar Rifa
     </button>
     <div class="card">
@@ -35,8 +35,8 @@
                     <input type="hidden" id="id">
                     <div class="row">
                         <div class="col mb-3">
-                            <label for="producto" class="form-label">Objeto(s) a rifar</label>
-                            <input type="text" id="producto" class="form-control" placeholder="Ingrese nombre del objeto">
+                            <label for="producto" class="form-label">Producto(s) a rifar</label>
+                            <input type="text" id="producto" class="form-control" placeholder="Ingrese nombre del producto">
                         </div>
                     </div>
                     <div class="row g-2">
@@ -77,7 +77,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-outline-secondary" id="btnCancelar" data-bs-dismiss="modal">Cancelar</button>
                 <button type="button" class="btn btn-primary" id="btnAgregar">Agregar</button>
             </div>
         </div>
@@ -93,21 +93,31 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <p>¿Está seguro de <b>eliminar</b> la rifa: <span id="delRifa"></span>?</p>
+                <p>¿Está seguro de <b>ELIMINAR</b> la rifa: <u><span id="delRifa"></span></u> y <b>TODOS</b> sus respectivos boletos?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
-                <button type="button" class="btn btn-primary" id="btnDelete" onclick="deleteRifa()">Confirmar</button>
+                <button type="button" class="btn btn-primary" id="btnDelete" onclick="deleteRifa()">Eliminar</button>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Your other scripts and libraries -->
+<!-- other scripts and libraries -->
 <script>
     $(document).ready(function() {
+        //show spinner
+        $("#tablaRifas").html('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+
         // Load the table with the existing data
-        $("#tablaRifas").load("procedures/fetchRifasTable.php");
+        $("#tablaRifas").load("procedures/fetchRifasTable.php", function() {
+            $("#tablaRifas").DataTable({
+                "language": {
+                    "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                    "emptyTable": "No se han creado rifas."
+                }
+            });
+        });
 
         //function when btnDelete is clicked to show modalDelete
         $(document).on("click", ".btn-delete", function() {
@@ -122,29 +132,81 @@
         $(".modal").on("hidden.bs.modal", function() {
             // Clear the form fields after modal close
             $("#id").val("");
-            $("#name").val("");
-            $("#user").val("");
-            $("#email").val("");
-            $("#password").val("");
-            $("select[name='rol']").val("0");
+            $("#producto").val("");
+            $("#cantidad").val("");
+            $("#precio").val("");
+            $("#oportunidades").val("");
+            $("#fecha").val("");
+            $("#btnradio2").prop("checked", true);
             $("#btnAgregar").html("Agregar");
         });
 
         //function when btnEdit is clicked to show modalEdit
         $(document).on("click", ".btn-edit", function() {
             var id = $(this).attr("data-id");
-            var nombre = $(this).attr("data-nombre");
-            var usuario = $(this).attr("data-usuario");
-            var correo = $(this).attr("data-correo");
-            var rol = $(this).attr("data-rol");
+            var producto = $(this).attr("data-producto");
+            var cantidad = $(this).attr("data-cantidad");
+            var precio = $(this).attr("data-precio");
+            var oportunidades = $(this).attr("data-oportunidades");
+            var fecha = $(this).attr("data-fecha");
+            var estado = $(this).attr("data-estado");
             $("#id").val(id);
-            $("#name").val(nombre);
-            $("#user").val(usuario);
-            $("#email").val(correo);
-            $("#rol").val(rol);
+            $("#producto").val(producto);
+            $("#cantidad").val(cantidad);
+            $("#precio").val(precio);
+            $("#oportunidades").val(oportunidades);
+            $("#fecha").val(fecha);
+            if (estado == 1) {
+                $("#btnradio1").prop("checked", true);
+            } else {
+                $("#btnradio2").prop("checked", true);
+            }
 
             $("#btnAgregar").html("Actualizar");
             $("#basicModal").modal("show");
+        });
+
+        $(document).on("click", ".btn-switch", function() {
+            var id = $(this).attr("data-id");
+            $.ajax({
+                type: "POST",
+                url: "procedures/switchEstado.php",
+                data: {
+                    id: id
+                },
+                success: function(response) {
+                    // Parse the JSON response to access the returned data
+                    var status = response.status;
+                    var message = response.message;
+
+                    // Show a notification based on the status code
+                    if (status === 1) {
+                        // Success notification using notif function
+                        notif("success", "fas fa-check-circle", "¡Éxito!", "Ahora", message);
+
+                        //reload table data
+                        $("#tablaRifas").load("procedures/fetchRifasTable.php");
+                        //destroy datatable
+                        $("#tablaRifas").DataTable().destroy();
+                        //set timeout then reload datatable with spanish language
+                        setTimeout(function() {
+                            $("#tablaRifas").DataTable({
+                                "language": {
+                                    "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                                    "emptyTable": "No se han creado rifas."
+                                }
+                            });
+                        }, 1);
+
+                    } else {
+                        // Error notification
+                        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", message);
+                    }
+                },
+                error: function(xhr, status, error) {
+                    notif("danger", "fa-solid fa-skull-crossbones", "¡Error!", "Ahora", "Ha ocurrido un error, contacte a soporte.");
+                }
+            });
         });
 
         // Handle form submission when the "Agregar" button is clicked
@@ -157,15 +219,23 @@
             var precio = $("#precio").val();
             // var imagen = $("#imagen").val();
             var fecha = $("#fecha").val();
-            if($("#btnradio1").is(':checked')){
+            if ($("#btnradio1").is(':checked')) {
                 var estado = 1;
-            }else{
+            } else {
                 var estado = 0;
             }
-            
+
             // Perform basic validation
-            if (producto === '' || cantidad === '' || oportunidades === '' || precio === '' || fecha === '') {
+            if (producto === '' || cantidad === 0 || oportunidades === 0 || precio === '' || fecha === '') {
                 notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "complete todos los campos");
+                return;
+            }
+
+            //validate if the date is older than today but include today
+            var today = new Date();
+            var date = new Date(fecha);
+            if (date < today) {
+                notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "La fecha debe ser por lo menos de un día a partir de hoy.");
                 return;
             }
 
@@ -177,6 +247,11 @@
 
             // Perform additional validation here if needed
             // ...
+
+            //change the button to a spinner during request
+            $("#btnAgregar").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Cargando...');
+            $("#btnAgregar").prop("disabled", true);
+            $("#btnCancelar").prop("disabled", true);
 
             // If all data is valid, send the form data to the PHP file using AJAX
             $.ajax({
@@ -206,7 +281,17 @@
                         $("#basicModal").modal("hide");
 
                         $("#tablaRifas").load("procedures/fetchRifasTable.php");
-
+                        //destroy datatable
+                        $("#tablaRifas").DataTable().destroy();
+                        //set timeout then reload datatable with spanish language
+                        setTimeout(function() {
+                            $("#tablaRifas").DataTable({
+                                "language": {
+                                    "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                                    "emptyTable": "No se han creado rifas."
+                                }
+                            });
+                        }, 10);
                     } else {
                         // Error notification
                         notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", message);
@@ -214,6 +299,12 @@
                 },
                 error: function(xhr, status, error) {
                     notif("danger", "fa-solid fa-skull-crossbones", "¡Error!", "Ahora", "Ha ocurrido un error, contacte a soporte.");
+                },
+                complete: function(xhr, status) {
+                    // Change the button to a success state
+                    $("#btnAgregar").html("Actualizar");
+                    $("#btnAgregar").prop("disabled", false);
+                    $("#btnCancelar").prop("disabled", false);
                 }
             });
         });
@@ -242,12 +333,26 @@
 
                     //reload table data
                     $("#tablaRifas").load("procedures/fetchRifasTable.php");
+                    //destroy datatable
+                    $("#tablaRifas").DataTable().destroy();
+                    //set timeout then reload datatable with spanish language
+                    setTimeout(function() {
+                        $("#tablaRifas").DataTable({
+                            "language": {
+                                "url": "https://cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                                "emptyTable": "No se han creado rifas."
+                            }
+                        });
+                    }, 10);
 
                 } else {
                     // Error notification
                     notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", message);
                 }
-
+                //reload datatable after a 200 ms delay
+                setTimeout(function() {
+                    $("#tablaRifas").DataTable();
+                }, 200);
             },
             error: function(xhr, status, error) {
                 notif("danger", "fa-solid fa-skull-crossbones", "¡Error!", "Ahora", "Ha ocurrido un error, contacte a soporte.");

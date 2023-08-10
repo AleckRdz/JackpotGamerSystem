@@ -2,7 +2,7 @@
 function notif(type, icon, title, subtitle, message) {
     // Create the toast element template
     var toastTemplate = `
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 2147483647">
+    <div class="position-fixed top-0 end-0 p-3" style="z-index: 2000">
         <div id="customToast" class="bs-toast toast fade hide" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="true">
             <div class="toast-header">
                 <i class="" id="toastIcon"></i>

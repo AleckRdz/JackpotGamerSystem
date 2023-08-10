@@ -13,7 +13,7 @@
             <li class="breadcrumb-item active">Usuarios</li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#basicModal">
+    <button type="button" class="btn btn-primary rounded-pill mb-3" data-bs-toggle="modal" data-bs-target="#basicModal">
         <i class="fas fa-plus"></i> Agregar Usuario
     </button>
     <div class="card">
@@ -98,8 +98,19 @@
 <!-- Your other scripts and libraries -->
 <script>
     $(document).ready(function() {
+        //show spinner
+        $("#tablaUsuarios").html('<div class="d-flex justify-content-center"><div class="spinner-border" role="status"><span class="visually-hidden">Loading...</span></div></div>');
+
         // Load the table with the existing data
-        $("#tablaUsuarios").load("procedures/fetchUserTable.php");
+        $("#tablaUsuarios").load("procedures/fetchUserTable.php", function() {
+            //datatable
+            $('#tablaUsuarios').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.25/i18n/Spanish.json",
+                    "emptyTable": "No hay usuarios registrados."
+                }
+            });
+        });
 
         //function when btnDelete is clicked to show modalDelete
         $(document).on("click", ".btn-delete", function() {
@@ -208,7 +219,7 @@
         $.ajax({
             type: "POST",
             url: "procedures/deleteUser.php", // Replace with the URL of your PHP file for adding the user
-            data: {                
+            data: {
                 id: id
             },
             success: function(response) {

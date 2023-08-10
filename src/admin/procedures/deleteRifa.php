@@ -10,7 +10,26 @@ try {
         // Connect to the database
         $db = new SQLite3($db_path);
 
-        // SQL query to delete the user from the 'usuarios' table
+        //check if rifa is active
+        $query = "SELECT estado FROM rifas WHERE idRifa = :rifa_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':rifa_id', $rifa_id_to_delete, SQLITE3_INTEGER);
+        $result = $stmt->execute();
+        $row = $result->fetchArray(SQLITE3_ASSOC);
+        if ($row['estado'] == 1) {
+            $response = array('status' => 0, 'message' => 'No se puede eliminar una rifa activa.');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit();
+        }
+
+        // delete all boletos from this rifa
+        $query = "DELETE FROM boletos WHERE edicion = :rifa_id";
+        $stmt = $db->prepare($query);
+        $stmt->bindValue(':rifa_id', $rifa_id_to_delete, SQLITE3_INTEGER);
+        $stmt->execute();
+
+        // SQL query to delete the rifa from the 'rifas' table
         $query = "DELETE FROM rifas WHERE idRifa = :rifa_id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':rifa_id', $rifa_id_to_delete, SQLITE3_INTEGER);

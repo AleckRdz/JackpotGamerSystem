@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $oportunidades = $_POST['oportunidades'];
     $fechaRifa = $_POST['fecha'];
     $estado = $_POST['estado'];
+    $digitos = $_POST['digitos'];
 
     // Perform additional validation here if needed
     // ...
@@ -26,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         
         // Prepare the SQL statement to insert the new user into the 'usuarios' table
-        $query = "INSERT INTO rifas (producto, cantidadBoletos, precioBoleto, oportunidades, fechaRifa, estado) VALUES (:producto, :cantidadBoletos, :precioBoleto, :oportunidades, :fechaRifa, :estado)";
+        $query = "INSERT INTO rifas (producto, cantidadBoletos, precioBoleto, oportunidades, fechaRifa, estado, digitos) VALUES (:producto, :cantidadBoletos, :precioBoleto, :oportunidades, :fechaRifa, :estado, :digitos)";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':producto', $producto, SQLITE3_TEXT);
         $stmt->bindValue(':cantidadBoletos', $cantidadBoletos, SQLITE3_TEXT);
@@ -34,6 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindValue(':oportunidades', $oportunidades, SQLITE3_TEXT);
         $stmt->bindValue(':fechaRifa', $fechaRifa, SQLITE3_TEXT);
         $stmt->bindValue(':estado', $estado, SQLITE3_TEXT);
+        $stmt->bindValue(':digitos', $digitos, SQLITE3_TEXT);
         
         // Execute the statement to insert the rifa
         $result = $stmt->execute();
@@ -47,9 +49,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $numero = str_pad($i, 5, '0', STR_PAD_LEFT);
                 $emptyCol = '';
                 $estado = 0;
-                $query = "INSERT INTO boletos (numero, nombre, telefono, fechaApartado, fechaPagado, estado, edicion, origen) VALUES (:numero, :nombre, :telefono, :fechaApartado, :fechaPagado, :estado, (SELECT idRifa FROM rifas WHERE idRifa = :idRifa), :origen)";
+                $query = "INSERT INTO boletos (numero, oportunidades, nombre, telefono, fechaApartado, fechaPagado, estado, edicion, origen) VALUES (:numero, :oportunidades, :nombre, :telefono, :fechaApartado, :fechaPagado, :estado, (SELECT idRifa FROM rifas WHERE idRifa = :idRifa), :origen)";
                 $stmt2 = $db->prepare($query);
                 $stmt2->bindValue(':numero', $numero, SQLITE3_TEXT);
+                $stmt2->bindValue(':oportunidades', $emptyCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':nombre', $emptyCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':telefono', $emptyCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':fechaApartado', $emptyCol, SQLITE3_TEXT);
@@ -60,7 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $result2 = $stmt2->execute();
                 if(!$result2) {
                     // Failed to add the rifa, return an error code (e.g., 0)
-                    $response = array('status' => 0, 'message' => 'Ha ocurrido un error.');
+                    $response = array('status' => 0, 'message' => 'Ha ocurrido un error: ' . $db->lastErrorMsg() . '');
                     // Return the JSON response
                     header('Content-Type: application/json');
                     echo json_encode($response);
@@ -73,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             
         } else {
             // Failed to add the rifa, return an error code (e.g., 0)
-            $response = array('status' => 0, 'message' => 'Ha ocurrido un error.');
+            $response = array('status' => 0, 'message' => 'Ha ocurrido un error: ' . $db->lastErrorMsg() . '');
         }
 
         // Return the JSON response
@@ -89,7 +92,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // Invalid request method, return an error code (e.g., -1)
-    $response = array('status' => -1, 'message' => 'Ha ocurrido un error, contacte a soporte.');
+    $response = array('status' => -1, 'message' => 'Ha ocurrido un error, contacte a soporte: ' . $db->lastErrorMsg() . '');
 
     // Return the JSON response
     header('Content-Type: application/json');

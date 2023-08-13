@@ -8,8 +8,7 @@ echo "
             <th>Origen</th>
             <th>Fecha apartado</th>
             <th>Fecha pagado</th>
-            <th>Estado</th>
-            <th>Acciones</th>
+            <th>Estado</th>            
         </tr>
     </thead>
     <tbody>";
@@ -26,52 +25,52 @@ echo "
 
         
         // Iterate over the results and generate the table rows dynamically
-        while ($rifa = $result->fetchArray(SQLITE3_ASSOC)) {
+        while ($boleto = $result->fetchArray(SQLITE3_ASSOC)) {
             //assign values to variables            
-            $nombre = $rifa['nombre'];
-            $telefono = $rifa['telefono'];
-            $origen = $rifa['origen'];
-            $fechaApartado = $rifa['fechaApartado'];
-            $fechaPagado = $rifa['fechaPagado'];
+            $nombre = $boleto['nombre'];
+            $telefono = $boleto['telefono'];
+            $origen = $boleto['origen'];
+            $fechaApartado = $boleto['fechaApartado'];
+            $fechaPagado = $boleto['fechaPagado'];
             echo '<tr>';            
-            echo '<td>' . htmlspecialchars($rifa['numero']) . '</td>';
+            echo '<td>' . htmlspecialchars($boleto['numero']) . '</td>';
             //if the name is empty, show a dash
             if ($nombre == '') {
                 echo '<td>-</td>';
             } else {
-                echo '<td>' . htmlspecialchars($rifa['nombre']) . '</td>';
+                echo '<td>' . htmlspecialchars($boleto['nombre']) . '</td>';
             }
             if ($telefono == '') {
                 echo '<td>-</td>';
             } else {
-                echo '<td>' . htmlspecialchars($rifa['telefono']) . '</td>';
+                echo '<td>' . htmlspecialchars($boleto['telefono']) . '</td>';
             }
             if ($origen == '') {
                 echo '<td>-</td>';
             } else {
-                echo '<td>' . htmlspecialchars($rifa['origen']) . '</td>';
+                echo '<td>' . htmlspecialchars($boleto['origen']) . '</td>';
             }
             if ($fechaApartado == '') {
                 echo '<td>-</td>';
             } else {
-                echo '<td>' . htmlspecialchars($rifa['fechaapartado']) . '</td>';
+                echo '<td>' . htmlspecialchars($boleto['fechaApartado']) . '</td>';
             }
             if ($fechaPagado == '') {
                 echo '<td>-</td>';
             } else {
-                echo '<td>' . htmlspecialchars($rifa['fechaPagado']) . '</td>';
+                echo '<td>' . htmlspecialchars($boleto['fechaPagado']) . '</td>';
             }
-            if ($rifa['estado'] == '0') {
+            if ($boleto['estado'] == '0') {
                 echo '<td class="text-center"><span class="badge bg-secondary rounded-pill">Libre</span></td>';
-            } else  if ($rifa['estado'] == '1') {
+                // echo '<td class="text-center">-</td>';
+            } else  if ($boleto['estado'] == '1') {
                 echo '<td class="text-center"><span class="badge bg-warning rounded-pill">Apartado</span></td>';
-            } else if ($rifa['estado'] == '2') {
+                // echo '<td class="text-center"><button type="button" onclick="validarBoleto();" data-id="' . htmlspecialchars($boleto['idBoleto']) . '" class="btn btn-success btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-check\'></i> Validar Boletos"><i class="fa-solid fa-circle-check"></i></button>';
+                // echo '<button type="button" onclick="liberarBoleto();" data-id="' . htmlspecialchars($boleto['idBoleto']) . '" class="btn btn-primary btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-repeat\'></i> Liberar Boletos"><i class="fa-solid fa-repeat"></i></button></td>';
+            } else if ($boleto['estado'] == '2') {
                 echo '<td class="text-center"><span class="badge bg-success rounded-pill">Pagado</span></td>';
-            }
-            echo '<td class="text-center">';            
-            echo '<button type="button" class="btn btn-success btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-check\'></i> Validar Boletos"><i class="fa-solid fa-circle-check"></i></button>';
-            echo '<button type="button" class="btn btn-danger btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-xmark\'></i> Invalidar Boletos"><i class="fa-solid fa-circle-xmark"></i></button>';
-            echo '<button type="button" class="btn btn-primary btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-repeat\'></i> Liberar Boletos"><i class="fa-solid fa-repeat"></i></button>';
+                // echo '<td class="text-center"><button type="button" onclick="invalidarBoleto();" data-id="' . htmlspecialchars($boleto['idBoleto']) . '" class="btn btn-danger btn-icon rounded-pill btn-sm me-1 mt-1" data-bs-toggle="tooltip" data-bs-target="#basicModal" data-bs-placement="top" data-bs-html="true" title="" data-bs-original-title="<i class=\'fas fa-xmark\'></i> Invalidar Boletos"><i class="fa-solid fa-circle-xmark"></i></button>';
+            }           
             echo '</tr>';
         }        
     } catch (Exception $e) {
@@ -88,7 +87,6 @@ echo "
                 <th>Fecha apartado</th>
                 <th>Fecha pagado</th>
                 <th>Estado</th>
-                <th>Acciones</th>
             </tr>
         </tfoot>";
 // Close the database connection

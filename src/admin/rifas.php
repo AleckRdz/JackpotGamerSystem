@@ -34,23 +34,34 @@
                 <form action="" id="formAgregarRifas">
                     <input type="hidden" id="id">
                     <div class="row">
-                        <div class="col mb-3">
+                        <div class="col-sm-12 mb-3">
                             <label for="producto" class="form-label">Producto(s) a rifar</label>
                             <input type="text" id="producto" class="form-control" placeholder="Ingrese nombre del producto">
                         </div>
                     </div>
                     <div class="row g-2">
-                        <div class="col mb-0">
-                            <label for="cantidad" class="form-label">Cantidad de boletos</label>
-                            <input type="number" id="cantidad" class="form-control" placeholder="Ingrese un número">
+                        <div class="col-sm-6 col-md-6 mb-0">
+                            <label for="digitos" class="form-label">Digitos a jugar</label><br>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="digitos" id="btnDigitos2" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnDigitos2">2</label>
+                                <input type="radio" class="btn-check" name="digitos" id="btnDigitos3" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnDigitos3">3</label>
+                                <input type="radio" class="btn-check" name="digitos" id="btnDigitos4" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnDigitos4">4</label>
+                                <input type="radio" class="btn-check" name="digitos" id="btnDigitos5" autocomplete="off">
+                                <label class="btn btn-outline-primary" for="btnDigitos5">5</label>
+                            </div>
                         </div>
-                        <div class="col mb-0">
-                            <label for="oportunidades" class="form-label">Oportunidades</label>
-                            <input type="number" id="oportunidades" class="form-control" placeholder="Ingrese un número">
+                        <div class="col-sm-6 col-md-6 mb-0">
+                            <label for="cantidad" class="form-label">Cantidad de boletos</label>
+                            <select name="cantidad" class="form-control" id="cantidad" disabled>
+                                <option value="0">Seleccionar dígitos</option>
+                            </select>
                         </div>
                     </div>
                     <div class="row g-2 mt-1">
-                        <div class="col mb-0">
+                        <div class="col-sm-6 mb-0">
                             <label for="precio" class="form-label">Precio del boleto</label>
                             <input type="number" id="precio" class="form-control" placeholder="Ingrese un número">
                         </div>
@@ -58,7 +69,7 @@
                             <label for="imagen" class="form-label">Imagen del producto</label>
                             <input type="file" id="imagen" name="imageFile" class="form-control">
                         </div> -->
-                        <div class="col mb-0">
+                        <div class="col-sm-6 mb-0">
                             <label for="fecha" class="form-label">Fecha de rifa</label>
                             <input type="date" id="fecha" class="form-control">
                         </div>
@@ -119,6 +130,72 @@
             });
         });
 
+        //functions when btnDigitos is clicked
+
+        // 2-Digit Tickets
+        $("#btnDigitos2").click(function() {
+            $("#cantidad").removeAttr("disabled");
+            $("#cantidad").html("<option value='0'>- Seleccionar -</option>");
+            $("#cantidad").append("<option value='100' data-oportunidades='1'>100 con 1 oportunidad c/u.</option>");
+            $("#cantidad").append("<option value='50' data-oportunidades='2'>50 con 2 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='25' data-oportunidades='4'>25 con 4 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='20' data-oportunidades='5'>20 con 5 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='10' data-oportunidades='10'>10 con 10 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='5' data-oportunidades='20'>5 con 20 oportunidades c/u.</option>");
+        });
+
+        // 3-Digit Tickets
+        $("#btnDigitos3").click(function() {
+            $("#cantidad").removeAttr("disabled");
+            $("#cantidad").html("<option value='0'>- Seleccionar -</option>");
+            $("#cantidad").append("<option value='1000' data-oportunidades='1'>1000 con 1 oportunidad c/u.</option>");
+            $("#cantidad").append("<option value='500' data-oportunidades='2'>500 con 2 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='250' data-oportunidades='4'>250 con 4 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='125' data-oportunidades='8'>125 con 8 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='100' data-oportunidades='10'>100 con 10 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='50' data-oportunidades='20'>50 con 20 oportunidades c/u.</option>");
+        });
+
+        // 4-Digit Tickets
+        $("#btnDigitos4").click(function() {
+            $("#cantidad").removeAttr("disabled");
+            $("#cantidad").html("<option value='0'>- Seleccionar -</option>");
+            $("#cantidad").append("<option value='10000' data-oportunidades='1'>10000 con 1 oportunidad c/u.</option>");
+            $("#cantidad").append("<option value='5000' data-oportunidades='2'>5000 con 2 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='2500' data-oportunidades='4'>2500 con 4 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='2000' data-oportunidades='5'>2000 con 5 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='1250' data-oportunidades='8'>1250 con 8 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='1000' data-oportunidades='10'>1000 con 10 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='625' data-oportunidades='16'>625 con 16 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='500' data-oportunidades='20'>500 con 20 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='400' data-oportunidades='25'>400 con 25 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='250' data-oportunidades='40'>250 con 40 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='200' data-oportunidades='50'>200 con 50 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='125' data-oportunidades='80'>125 con 80 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='100' data-oportunidades='100'>100 con 100 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='50' data-oportunidades='200'>50 con 200 oportunidades c/u.</option>");
+        });
+
+        // 5-Digit Tickets
+        $("#btnDigitos5").click(function() {
+            $("#cantidad").removeAttr("disabled");
+            $("#cantidad").html("<option value='0'>- Seleccionar -</option>");
+            $("#cantidad").append("<option value='100000' data-oportunidades='1'>100000 con 1 oportunidad c/u.</option>");
+            $("#cantidad").append("<option value='50000' data-oportunidades='2'>50000 con 2 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='25000' data-oportunidades='4'>25000 con 4 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='20000' data-oportunidades='5'>20000 con 5 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='12500' data-oportunidades='8'>12500 con 8 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='10000' data-oportunidades='10'>10000 con 10 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='6250' data-oportunidades='16'>6250 con 16 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='5000' data-oportunidades='20'>5000 con 20 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='4000' data-oportunidades='25'>4000 con 25 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='2500' data-oportunidades='40'>2500 con 40 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='2000' data-oportunidades='50'>2000 con 50 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='1250' data-oportunidades='80'>1250 con 80 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='1000' data-oportunidades='100'>1000 con 100 oportunidades c/u.</option>");
+            $("#cantidad").append("<option value='500' data-oportunidades='200'>500 con 200 oportunidades c/u.</option>");
+        });
+
         //function when btnDelete is clicked to show modalDelete
         $(document).on("click", ".btn-delete", function() {
             var producto = $(this).attr("data-producto");
@@ -139,6 +216,13 @@
             $("#fecha").val("");
             $("#btnradio2").prop("checked", true);
             $("#btnAgregar").html("Agregar");
+            $("#cantidad").attr("disabled", "disabled");
+            $("#cantidad").html("<option value='0'>Seleccionar dígitos</option>");
+            $("#btnDigitos2").prop("checked", false);
+            $("#btnDigitos3").prop("checked", false);
+            $("#btnDigitos4").prop("checked", false);
+            $("#btnDigitos5").prop("checked", false);
+
         });
 
         //function when btnEdit is clicked to show modalEdit
@@ -150,11 +234,21 @@
             var oportunidades = $(this).attr("data-oportunidades");
             var fecha = $(this).attr("data-fecha");
             var estado = $(this).attr("data-estado");
+            var digitos = $(this).attr("data-digitos");
+            if (digitos == 2) {
+                $("#btnDigitos2").click();
+            } else if (digitos == 3) {
+                $("#btnDigitos3").click();
+            } else if (digitos == 4) {
+                $("#btnDigitos4").click();
+            } else if (digitos == 5) {
+                $("#btnDigitos5").click();
+            }
             $("#id").val(id);
             $("#producto").val(producto);
+            $("#cantidad").removeAttr("disabled");
             $("#cantidad").val(cantidad);
             $("#precio").val(precio);
-            $("#oportunidades").val(oportunidades);
             $("#fecha").val(fecha);
             if (estado == 1) {
                 $("#btnradio1").prop("checked", true);
@@ -215,27 +309,38 @@
             var id = $("#id").val();
             var producto = $("#producto").val();
             var cantidad = $("#cantidad").val();
-            var oportunidades = $("#oportunidades").val();
-            var precio = $("#precio").val();
-            // var imagen = $("#imagen").val();
+            var oportunidades = $("#cantidad option:selected").attr("data-oportunidades");
+            var precio = $("#precio").val();            
             var fecha = $("#fecha").val();
             if ($("#btnradio1").is(':checked')) {
                 var estado = 1;
             } else {
                 var estado = 0;
             }
-
+            
             // Perform basic validation
             if (producto === '' || cantidad === 0 || oportunidades === 0 || precio === '' || fecha === '') {
                 notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "complete todos los campos");
                 return;
+            }
+            
+            if ($("#btnDigitos2").is(':checked')) {
+                var digitos = 2;
+            } else if ($("#btnDigitos3").is(':checked')) {
+                var digitos = 3;
+            } else if ($("#btnDigitos4").is(':checked')) {
+                var digitos = 4;
+            } else if ($("#btnDigitos5").is(':checked')) {
+                var digitos = 5;
+            } else {
+                notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "Seleccione la cantidad de dígitos.");
             }
 
             //validate if the date is older than today but include today
             var today = new Date();
             var date = new Date(fecha);
             if (date < today) {
-                notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "La fecha debe ser por lo menos de un día a partir de hoy.");
+                notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "La fecha de la rifa debe ser por lo menos de un día a partir de la fecha actual.");
                 return;
             }
 
@@ -263,7 +368,7 @@
                     cantidad: cantidad,
                     oportunidades: oportunidades,
                     precio: precio,
-                    // imagen: imagen,
+                    digitos: digitos,                    
                     fecha: fecha,
                     estado: estado
                 },

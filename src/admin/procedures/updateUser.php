@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 } else {
     // Invalid request method, return an error code (e.g., -1)
-    $response = array('status' => -1, 'message' => 'Ha ocurrido un error, contacte a soportes.');
+    $response = array('status' => -1, 'message' => 'Ha ocurrido un error, contacte a soporte.');
 
     // Return the JSON response
     header('Content-Type: application/json');

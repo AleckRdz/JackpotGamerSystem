@@ -11,6 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $oportunidades = $_POST['oportunidades'];
     $fechaRifa = $_POST['fecha'];
     $estado = $_POST['estado'];
+    $digitos = $_POST['digitos'];
 
     // Perform additional validation here if needed
     // ...
@@ -42,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $result = $stmt->execute();
         }
         
-        $query = "UPDATE rifas SET producto = :producto, cantidadBoletos = :cantidadBoletos, precioBoleto = :precioBoleto, oportunidades = :oportunidades, fechaRifa = :fechaRifa, estado = :estado WHERE idRifa = :id";
+        $query = "UPDATE rifas SET producto = :producto, cantidadBoletos = :cantidadBoletos, precioBoleto = :precioBoleto, oportunidades = :oportunidades, fechaRifa = :fechaRifa, estado = :estado, digitos = :digitos WHERE idRifa = :id";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':id', $id, SQLITE3_TEXT);
         $stmt->bindValue(':producto', $producto, SQLITE3_TEXT);
@@ -51,6 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindValue(':oportunidades', $oportunidades, SQLITE3_TEXT);
         $stmt->bindValue(':fechaRifa', $fechaRifa, SQLITE3_TEXT);
         $stmt->bindValue(':estado', $estado, SQLITE3_TEXT);
+        $stmt->bindValue(':digitos', $digitos, SQLITE3_TEXT);
         $result = $stmt->execute();               
 
         if ($result) {

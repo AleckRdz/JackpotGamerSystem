@@ -13,6 +13,7 @@ try {
     $query = "CREATE TABLE IF NOT EXISTS boletos (
                 idBoleto INTEGER PRIMARY KEY AUTOINCREMENT,
                 numero TEXT NOT NULL,
+                oportunidades TEXT,
                 edicion INTEGER NOT NULL,
                 nombre TEXT,
                 telefono TEXT,

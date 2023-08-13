@@ -3,10 +3,11 @@ echo "
     <thead>
         <tr>
             <th>Producto(s)</th>
+            <th>Digitos</th>
             <th>Boletos</th>
+            <th>Oportunidades</th>            
             <th>Precio</th>
-            <th>Oportunidades</th>
-            <th>Fecha de rifa</th>
+            <th>Fecha</th>
             <th>Estado</th>
             <th>Acciones</th>
         </tr>
@@ -34,9 +35,10 @@ echo "
                     //     echo '<td><img src="assets/img/elements/default.jpg" class="img-fluid rounded-circle" width="40" height="40"></td>';
             // }
             echo '<td>' . htmlspecialchars($rifa['producto']) . '</td>';
+            echo '<td>' . htmlspecialchars($rifa['digitos']) . '</td>';
             echo '<td>' . htmlspecialchars($rifa['cantidadBoletos']) . '</td>';
-            echo '<td>$' . htmlspecialchars($rifa['precioBoleto']) . '</td>';
             echo '<td>' . htmlspecialchars($rifa['oportunidades']) . '</td>';
+            echo '<td>$' . htmlspecialchars($rifa['precioBoleto']) . '</td>';
             //change format to mexican date format
             $fecha = date_create($rifa['fechaRifa']);
             echo '<td>' . date_format($fecha, 'd/m/Y') . '</td>';
@@ -54,6 +56,7 @@ echo "
             data-oportunidades="' . htmlspecialchars($rifa['oportunidades']) . '" 
             data-fecha="' . htmlspecialchars($rifa['fechaRifa']) . '" 
             data-estado="' . htmlspecialchars($rifa['estado']) . '"
+            data-digitos="' . htmlspecialchars($rifa['digitos']) . '"
             data-bs-offset="0,4" data-bs-placement="top" data-bs-html="true" data-bs-original-title="<i class=\'fa-solid fa-pen\'></i> <span>Editar</span>">';
             echo '<i class="fas fa-edit"></i></a>';
             echo '<a href="#" class="btn btn-danger btn-icon rounded-pill btn-sm me-1 mt-1 btn-delete" data-bs-toggle="tooltip" 
@@ -73,10 +76,11 @@ echo "
         <tfoot>
             <tr>
                 <th>Producto(s)</th>
+                <th>Digitos</th>
                 <th>Boletos</th>
-                <th>Precio</th>
                 <th>Oportunidades</th>
-                <th>Fecha de rifa</th>
+                <th>Precio</th>
+                <th>Fecha</th>
                 <th>Estado</th>
                 <th>Acciones</th>
             </tr>

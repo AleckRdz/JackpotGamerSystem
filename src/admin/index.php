@@ -11,7 +11,7 @@
           <a href="">Inicio</a>
         </li>
       </ol>
-    </nav>
+    </nav> //TODO: pantalla de gráficas/reportes
     <div class="card">
       <div class="card-body">
         <div class="col-md-6 col-lg-4 col-xl-4 order-0 mb-4">

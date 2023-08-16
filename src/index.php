@@ -13,7 +13,7 @@
               <a href="boletos.php">Comprar Boletos</a>
             </div>
             <div class="icon-button">
-              <a href="https://fb.watch/m7C1uBlO5V/" target="_blank"><i class="fa fa-play"></i> Ver Live</a>
+              <!-- <a href="https://fb.watch/m7C1uBlO5V/" target="_blank"><i class="fa fa-play"></i> Ver Live</a> -->
             </div>
           </div>
         </div>

@@ -22,6 +22,10 @@
         <link rel="stylesheet" href="assets/css/owl.css">
         <link rel="stylesheet" href="assets/css/animate.css">
         <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
+        <link rel="stylesheet" href="admin/assets/css/tickets.css">
+        <link rel="stylesheet" href="assets/css/backButton.css">
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     </head>
 
@@ -40,8 +44,8 @@
                             <!-- ***** Logo End ***** -->
                             <!-- ***** Menu Start ***** -->
                             <ul class="nav">
-                                <li><a href="index.php#inicio" class="active">Inicio</a></li>
-                                <li><a href="index.php#preguntasFrecuentes" class="active">Preg. Frec.</a></li>
+                                <li><a href="index.php#inicio">Inicio</a></li>
+                                <li><a href="index.php#preguntasFrecuentes">Preg. Frec.</a></li>
                                 <!-- <li class="has-sub">
                                     <a href="javascript:void(0)">Rifas</a>
                                     <ul class="sub-menu">

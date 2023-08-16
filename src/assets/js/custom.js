@@ -106,39 +106,7 @@
 	  for (let i = 0; i < accordions.length; i++) {
 	    Accordion.init(accordions[i]);
 	  }
-	})();
-	
-
-	(function init() {
-		function getTimeRemaining(endtime) {
-		  var t = Date.parse(endtime) - Date.parse(new Date());
-		  var seconds = Math.floor((t / 1000) % 60);
-		  var minutes = Math.floor((t / 1000 / 60) % 60);
-		  var hours = Math.floor((t / (1000 * 60 * 60)) % 24);
-		  var days = Math.floor(t / (1000 * 60 * 60 * 24));
-		  return {
-			'total': t,
-			'days': days,
-			'hours': hours,
-			'minutes': minutes,
-			'seconds': seconds
-		  };
-		}
-		
-		function initializeClock(endtime){
-		var timeinterval = setInterval(function(){
-		  var t = getTimeRemaining(endtime);
-		  document.querySelector(".days > .value").innerText=t.days;
-		  document.querySelector(".hours > .value").innerText=t.hours;
-		  document.querySelector(".minutes > .value").innerText=t.minutes;
-		  document.querySelector(".seconds > .value").innerText=t.seconds;
-		  if(t.total<=0){
-			clearInterval(timeinterval);
-		  }
-		},1000);
-	  }
-	  initializeClock(((new Date()).getFullYear()+1) + "/1/1")
-	})()
+	})();	
 
 	var context;
 	var $window = $(window);
@@ -314,7 +282,7 @@
 	    $('.nav a').each(function () {
 	        var currLink = $(this);
 	        var refElement = $(currLink.attr("href"));
-	        if (refElement.position().top <= scrollPos && refElement.position().top + refElement.height() > scrollPos) {
+	        if (refElement.position() <= scrollPos && refElement.position() + refElement.height() > scrollPos) {
 	            $('.nav ul li a').removeClass("active");
 	            currLink.addClass("active");
 	        }
@@ -388,7 +356,7 @@
             $w = jQuery(window),
             viewTop = $w.scrollTop(),
             viewBottom = viewTop + $w.height(),
-            _top = $t.offset().top,
+            _top = $t.offset(),
             _bottom = _top + $t.height(),
             compareTop = partial === true ? _bottom : _top,
             compareBottom = partial === true ? _top : _bottom;

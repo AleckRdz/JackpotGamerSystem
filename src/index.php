@@ -120,7 +120,7 @@
                   <p>En JackpotGamer entendemos tu pasión por los videojuegos y queremos ayudarte a llevar tu experiencia de juego al siguiente nivel.<br>
                     Nos hemos dedicado a crear una plataforma emocionante donde puedes participar en sorteos y tener la oportunidad de ganar increíbles set ups gaming, así como otros premios relacionados con el mundo del gaming.</p>
                   <h4>Jackpotgamermx® 2023</h4>
-                  <span>Ciuda Victoria, Tamps.</span>
+                  <span>Ciudad Victoria, Tamps.</span>
                 </div>
                 <div class="image">
                   <img src="assets/img/jackpotGamer.jpg" alt="logoJackpotGamer">

@@ -48,6 +48,7 @@
       <div class="section-heading text-center">
         <h4>LISTA DE <em>BOLETOS</em></h4>
         <h6 class="text-muted">Boletos restantes: <b><span class="boletos-restantes">-</span></b></h6>
+        <h6 class="text-muted">Oportunidades por boleto: <b><span class="oportunidad-boleto">-</span></b></h6>
         <h6 class="text-muted">Precio por boleto: <b>$<span class="precio-boleto">-</span></b></h6>
         <h6 class="text-muted">Boletos seleccionados: <b><span class="contador-boletos">-</span></b></h6>
         <h6 class="text-muted">Precio a pagar: <b>$<span class="precio-lista">-</span></b></h6>
@@ -75,88 +76,122 @@
 <div class="modal fade" id="modalAzar" tabindex="-1" aria-labelledby="modalAzarLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
     <div class="modal-content">
-      <form id="azar-form" name="gs" method="submit" role="search" action="#">
-        <div class="modal-header">
-          <h5 class="modal-title" id="modalAzarLabel">Elegir al Azar</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="cargarBoletos()"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-lg-6 mt-3">
-              <label for="nombre" class="form-label">Nombre Completo:</label>
-              <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre y apellidos...">
-            </div>
-            <div class="col-lg-6 mt-3">
-              <label for="telefono" class="form-label">Teléfono:</label>
-              <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ingrese su número telefónico...">
-            </div>
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalAzarLabel">Elegir al Azar</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="container">
+            <label for="cantidad" class="form-label">Cantidad de boletos:</label>
+            <select name="cantidad" id="cantidad" class="form-control">
+              <option value="0">- Seleccionar -</option>
+              <option value="1">1 boleto</option>
+              <option value="2">2 boletos</option>
+              <option value="3">3 boletos</option>
+              <option value="4">4 boletos</option>
+              <option value="5">5 boletos</option>
+              <option value="10">10 boletos</option>
+              <option value="20">20 boletos</option>
+              <option value="30">30 boletos</option>
+              <option value="50">50 boletos</option>
+              <option value="100">100 boletos</option>
+            </select>
           </div>
           <div class="row">
-            <div class="col-lg-6 mt-3">
-              <label for="estado" class="form-label">Estado:</label>
-              <select name="estado" id="estado" class="form-control">
-                <option value="0">- Seleccionar -</option>
-                <option value="Aguascalientes">Aguascalientes</option>
-                <option value="Baja California">Baja California</option>
-                <option value="Baja California Sur">Baja California Sur</option>
-                <option value="Campeche">Campeche</option>
-                <option value="Chiapas">Chiapas</option>
-                <option value="Chihuahua">Chihuahua</option>
-                <option value="Coahuila">Coahuila</option>
-                <option value="Colima">Colima</option>
-                <option value="Durango">Durango</option>
-                <option value="Guanajuato">Guanajuato</option>
-                <option value="Guerrero">Guerrero</option>
-                <option value="Hidalgo">Hidalgo</option>
-                <option value="Jalisco">Jalisco</option>
-                <option value="Estado de México">Estado de México</option>
-                <option value="Michoacán">Michoacán</option>
-                <option value="Morelos">Morelos</option>
-                <option value="Nayarit">Nayarit</option>
-                <option value="Nuevo León">Nuevo León</option>
-                <option value="Oaxaca">Oaxaca</option>
-                <option value="Puebla">Puebla</option>
-                <option value="Querétaro">Querétaro</option>
-                <option value="Quintana Roo">Quintana Roo</option>
-                <option value="San Luis Potosí">San Luis Potosí</option>
-                <option value="Sinaloa">Sinaloa</option>
-                <option value="Sonora">Sonora</option>
-                <option value="Tabasco">Tabasco</option>
-                <option value="Tamaulipas">Tamaulipas</option>
-                <option value="Tlaxcala">Tlaxcala</option>
-                <option value="Veracruz">Veracruz</option>
-                <option value="Yucatán">Yucatán</option>
-                <option value="Zacatecas">Zacatecas</option>
-                <option value="Fuera de México">Otro</option>
-              </select>
+            <div class="mt-3">
+              <label for="cantidad" class="form-label" hidden>Boletos:</label>
+              <div class="ticket-list-random"></div>
             </div>
-            <div class="col-lg-6 mt-3">
-              <label for="cantidad" class="form-label">Cantidad de boletos:</label>
-              <select name="cantidad" id="cantidad" class="form-control">
-                <option value="0">- Seleccionar -</option>
-                <option value="1">1 boleto</option>
-                <option value="2">2 boletos</option>
-                <option value="3">3 boletos</option>
-                <option value="4">4 boletos</option>
-                <option value="5">5 boletos</option>
-                <option value="10">10 boletos</option>
-                <option value="20">20 boletos</option>
-                <option value="30">30 boletos</option>
-                <option value="50">50 boletos</option>
-                <option value="100">100 boletos</option>
-              </select>
-            </div>
-            <div class="row text-center">
-              <div class="col mt-4">
-                <fieldset>
-                  <button class="main-button btn btn-primary">Generar</button>
-                </fieldset>
-              </div>
+          </div>
+          <div class="row text-center">
+            <div class="mt-4">
+              <fieldset>
+                <button class="btn btn-generar">Generar</button>
+                <button class="main-button btn btn-apartar-azar" hidden>Apartar números</button>
+              </fieldset>
             </div>
           </div>
         </div>
-        <div class="ticket-random"></div>
-      </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- modal para apartar boletos -->
+<div class="modal fade" id="modalApartar" tabindex="-1" aria-labelledby="modalApartarLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalApartarLabel">Apartar Boletos</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-lg-12">
+            <label for="nombre" class="form-label">Nombre Completo:</label>
+            <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre y apellidos...">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 mt-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ingrese su número telefónico...">
+          </div>
+          <div class="col-lg-6 mt-3">
+            <label for="estado" class="form-label">Estado:</label>
+            <select name="estado" id="estado" class="form-control">
+              <option value="0">- Seleccionar -</option>
+              <option value="Aguascalientes">Aguascalientes</option>
+              <option value="Baja California">Baja California</option>
+              <option value="Baja California Sur">Baja California Sur</option>
+              <option value="Campeche">Campeche</option>
+              <option value="Chiapas">Chiapas</option>
+              <option value="Chihuahua">Chihuahua</option>
+              <option value="Coahuila">Coahuila</option>
+              <option value="Colima">Colima</option>
+              <option value="Durango">Durango</option>
+              <option value="Guanajuato">Guanajuato</option>
+              <option value="Guerrero">Guerrero</option>
+              <option value="Hidalgo">Hidalgo</option>
+              <option value="Jalisco">Jalisco</option>
+              <option value="Estado de México">Estado de México</option>
+              <option value="Michoacán">Michoacán</option>
+              <option value="Morelos">Morelos</option>
+              <option value="Nayarit">Nayarit</option>
+              <option value="Nuevo León">Nuevo León</option>
+              <option value="Oaxaca">Oaxaca</option>
+              <option value="Puebla">Puebla</option>
+              <option value="Querétaro">Querétaro</option>
+              <option value="Quintana Roo">Quintana Roo</option>
+              <option value="San Luis Potosí">San Luis Potosí</option>
+              <option value="Sinaloa">Sinaloa</option>
+              <option value="Sonora">Sonora</option>
+              <option value="Tabasco">Tabasco</option>
+              <option value="Tamaulipas">Tamaulipas</option>
+              <option value="Tlaxcala">Tlaxcala</option>
+              <option value="Veracruz">Veracruz</option>
+              <option value="Yucatán">Yucatán</option>
+              <option value="Zacatecas">Zacatecas</option>
+              <option value="Fuera de México">Otro</option>
+            </select>
+          </div>
+          <div class="row">
+            <div class="col-lg-12 mt-3">
+              <label for="cantidad" class="form-label">Boletos seleccionados:</label>
+              <div class="ticket-list-usuario"></div>
+            </div>
+          </div>
+          <div class="row text-center">
+            <div class="col mt-4">
+              <fieldset>
+                <button class="main-button btn btn-primary btn-pagar">Pagar</button>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="ticket-random"></div>
     </div>
   </div>
 </div>
@@ -190,6 +225,64 @@
         }
       }
     });
+
+    $(".btn-generar").click(function() {
+      var cantidad = $("#cantidad").val();
+
+      if (cantidad > 0 && cantidad <= 100) {
+        $.ajax({
+          type: "POST",
+          url: "procedures/generateBoletos.php",
+          data: {
+            cantidad: cantidad
+          },
+          success: function(response) {
+            $('.ticket-list-random').html(response);
+            // show button
+            $(".btn-apartar-azar").removeAttr("hidden");
+            // show label
+            $(".ticket-list-random").prev().removeAttr("hidden");
+            //change button text to Regenerar
+            $(".btn-generar").text("Volver a Generar");
+          }
+        });
+      } else {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Seleccione una cantidad válida de boletos a generar.");
+      }
+    });
+
+    //function when btn-apartar is clicked to open modal, take each of the selected tickets number and put them in the modal separated by commas, last one gets a dot
+    $(".btn-apartar").click(function() {
+      var ticketList = $(".ticket-list").children();
+      var ticketListLength = ticketList.length;
+      var ticketListText = "";
+
+      for (var i = 0; i < ticketListLength; i++) {
+        var ticket = ticketList[i].textContent;
+        ticketListText += ticket + (i === ticketListLength - 1 ? "." : ", ");
+      }
+
+      $("#modalApartar").modal("show");
+      $(".ticket-list-usuario").html(ticketListText);
+    });
+
+    //function when btn-apartar-azar is clicked to open modal, show numbers generated on modal
+    $(".btn-apartar-azar").click(function() {
+      var ticketList = $(".ticket-list-random").text();
+
+      $("#modalApartar").modal("show");
+      $(".ticket-list-usuario").html(ticketList);
+      $("#modalAzar").modal("hide");
+    });
+
+    //on modal generar close clean inputs
+    $("#modalAzar").on("hidden.bs.modal", function() {
+      $("#cantidad").val(0);
+      $(".ticket-list-random").html("");
+      $(".ticket-list-random").prev().attr("hidden", true);
+      $(".btn-generar").text("Generar");
+      $(".btn-apartar-azar").attr("hidden", true);
+    });
   });
 
   function moverTicket(element) {
@@ -218,7 +311,7 @@
   function cargarBoletos() {
     $.ajax({
       type: "POST",
-      url: "admin/procedures/fetchBoletosLibres.php",
+      url: "procedures/fetchBoletosLibres.php",
       data: $(this).serialize(),
       success: function(response) {
         $('.ticket-container').html(response);

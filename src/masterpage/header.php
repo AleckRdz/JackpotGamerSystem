@@ -24,6 +24,7 @@
         <link rel="stylesheet" href="https://unpkg.com/swiper@7/swiper-bundle.min.css" />
         <link rel="stylesheet" href="admin/assets/css/tickets.css">
         <link rel="stylesheet" href="assets/css/backButton.css">
+        <link rel="stylesheet" href="assets/css/slot.css">
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 

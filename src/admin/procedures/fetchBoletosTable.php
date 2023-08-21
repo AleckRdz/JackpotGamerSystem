@@ -2,7 +2,8 @@
 echo "
     <thead>
         <tr>
-            <th>#</th>
+            <th>Número</th>
+            <th>Oportunidades</th>
             <th>Comprador</th>
             <th>Teléfono</th>
             <th>Origen</th>
@@ -32,9 +33,14 @@ echo "
             $origen = $boleto['origen'];
             $fechaApartado = $boleto['fechaApartado'];
             $fechaPagado = $boleto['fechaPagado'];
+            $oportunidades = $boleto['oportunidades'];
             echo '<tr>';            
-            echo '<td>' . htmlspecialchars($boleto['numero']) . '</td>';
-            //if the name is empty, show a dash
+            echo '<td>' . htmlspecialchars($boleto['numero']) . '</td>';            
+            if ($oportunidades == '') {
+                echo '<td>-</td>';
+            } else {
+                echo '<td>' . htmlspecialchars($boleto['oportunidades']) . '</td>';
+            }
             if ($nombre == '') {
                 echo '<td>-</td>';
             } else {
@@ -80,7 +86,8 @@ echo "
         </tbody>
         <tfoot>
             <tr>
-                <th>#</th>
+                <th>Número</th>
+                <th>Oportunidades</th>
                 <th>Comprador</th>
                 <th>Teléfono</th>
                 <th>Origen</th>

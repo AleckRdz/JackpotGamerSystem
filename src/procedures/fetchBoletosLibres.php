@@ -23,6 +23,7 @@ try {
 
     if ($row === false) {
         echo '<div class="alert alert-danger" role="alert">No hay boletos disponibles.</div>';
+        exit();
     } else {
         // Print the first row's data
         //assign values to variables            

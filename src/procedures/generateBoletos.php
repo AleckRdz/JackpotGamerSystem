@@ -36,7 +36,7 @@ try {
     }
 
     // SQL query to select boletos from the 'boletos' table of the current raffle        
-    $query = "SELECT numero FROM boletos WHERE estado = 0 AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) ORDER BY RANDOM() LIMIT $limit";
+    $query = "SELECT numero, oportunidades FROM boletos WHERE estado = 0 AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) ORDER BY RANDOM() LIMIT $limit";
     $result = $db->query($query);
 
     // Execute the query and get the rows
@@ -50,11 +50,18 @@ try {
     } else {
         $numRows = count($rows);
 
+        echo '<table class="table table-responsive table-hover table-sm"><thead><tr><th scope="col" width="25%" class="text-center">Número(s)</th><th scope="col">Oportunidades Extra</th></tr></thead><tbody>';
         // Print the rows' data
         for ($i = 0; $i < $numRows; $i++) {
             $numero = $rows[$i]['numero'];
-            echo '<span>' . $numero . ($i === $numRows - 1 ? '.' : ', ') . '</span>';
+            if($rows[$i]['oportunidades'] == "") {
+                $oportunidades = '-';
+            } else {                
+                $oportunidades = $rows[$i]['oportunidades'];
+            }
+            echo '<tr><td class="text-center">' . $numero . '</td><td>' . $oportunidades . '</td></tr>';
         }
+        echo '</tbody></table>';
     }
 
 } catch (Exception $e) {

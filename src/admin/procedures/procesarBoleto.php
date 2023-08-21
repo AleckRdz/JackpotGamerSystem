@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new SQLite3($db_path);
 
         //validate if the number exists
-        $query = "SELECT numero FROM boletos WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
+        $query = "SELECT estado FROM boletos WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);
         $result = $stmt->execute();
@@ -31,11 +31,63 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             return;
         }
 
-        $query = "UPDATE boletos SET estado = :tipo WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
-        $stmt = $db->prepare($query);
-        $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);
-        $stmt->bindValue(':tipo', $tipo, SQLITE3_NUM);
-        $result = $stmt->execute();
+        if ($tipo == $row['estado']) {
+            $response = array('status' => 0, 'message' => 'El boleto ya tiene dicho estado.');
+
+            // Return the JSON response
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+
+        if($tipo == 0 && $row['estado'] == 2){
+            $response = array('status' => 0, 'message' => 'No se puede liberar un boleto pagado.');
+            
+            // Return the JSON response
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+
+        if($tipo == 1 && $row['estado'] == 0){
+            $response = array('status' => 0, 'message' => 'No se puede invalidar un boleto libre.');
+            
+            // Return the JSON response
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            return;
+        }
+
+        // if ($tipo == 2 && $row['estado'] == 0) {
+        //     $response = array('status' => 0, 'message' => 'No se puede validar un boleto libre.');
+
+        //     // Return the JSON response
+        //     header('Content-Type: application/json');
+        //     echo json_encode($response);
+        //     return;
+        // }
+
+        if($tipo == 0){
+            $query = "UPDATE boletos SET estado = :tipo, nombre = '', telefono = '', origen = '', fechaApartado = '' WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);
+            $stmt->bindValue(':tipo', $tipo, SQLITE3_NUM);
+            $result = $stmt->execute();
+        } else if($tipo == 1){
+            $query = "UPDATE boletos SET estado = :tipo, fechaPagado = '' WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);
+            $stmt->bindValue(':tipo', $tipo, SQLITE3_NUM);
+            $result = $stmt->execute();
+        } else if($tipo == 2){
+            $query = "UPDATE boletos SET estado = :tipo, fechaPagado = :fecha WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
+            $stmt = $db->prepare($query);
+            $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);
+            $stmt->bindValue(':tipo', $tipo, SQLITE3_NUM);
+            $stmt->bindValue(':fecha', date('Y-m-d H:i:s'), SQLITE3_TEXT);
+            $result = $stmt->execute();
+        }
+
 
         if ($result) {
             // User updated successfully, return a success code (e.g., 1)

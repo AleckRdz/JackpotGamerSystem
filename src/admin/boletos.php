@@ -10,8 +10,11 @@
             <li class="breadcrumb-item active">Boletos</li>
         </ol>
     </nav>
-    <button type="button" class="btn btn-primary rounded-pill mb-3 btn-validar" data-bs-toggle="modal" data-bs-target="#basicModal">
+    <button type="button" class="btn btn-secondary rounded-pill mb-3 btn-validar" data-bs-toggle="modal" data-bs-target="#basicModal">
         <i class="fa-solid fa-gear"></i> Validar Boletos
+    </button>
+    <button type="button" class="btn btn-primary rounded-pill mb-3 btn-liberar" data-bs-toggle="modal" data-bs-target="#confirmModal">
+        <i class="fa-solid fa-repeat"></i> Liberar Apartados
     </button>
     <div class="card">
         <div class="card-body">
@@ -63,6 +66,25 @@
         </div>
     </div>
 
+    <!-- modal confirmar -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel1">Liberar Apartados</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Está seguro de liberar todos los boletos apartados? <br><b>Esta acción no se puede revertir.</b></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" id="btnCancelar" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-primary" id="btnLiberar" data-bs-dismiss="modal">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 <script>
@@ -75,7 +97,30 @@
                 $('.btn-validar').click();
                 return false;
             }
-        });        
+        });
+
+        //function on button click
+        $('#btnLiberar').click(function() {
+            $.ajax({
+                url: 'procedures/liberarBoletos.php',
+                type: 'POST',
+                success: function(response) {
+                    status = response.status;
+                    message = response.message;
+                    if (status == '1') {
+                        notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", message);                        
+                        $('#confirmModal').modal('hide');
+                        cargarTablaBoletos();
+                    } else {
+                        //show error notification
+                        notif("warning", "fa-solid fa-times", "¡Atención!", "Ahora", message);
+                    }
+                },
+                error: function() {
+                    notif("danger", "fa-solid fa-times", "¡Error!", "Ahora", message);
+                }
+            });
+        });
 
         //autofocus on modal show
         $('#basicModal').on('shown.bs.modal', function() {
@@ -87,15 +132,17 @@
                     return false;
                 }
             });
-            //bind left arrow, up arrow and right arrow keys to radio button selection
+            //bind q, w, and e keys to radio button selection
             $(document).keydown(function(e) {
-                if (e.which == 37) {
+                if (e.which == 81) {
                     $('#btnradio1').click();
                     return false;
-                } else if (e.which == 38) {
+                }
+                if (e.which == 87) {
                     $('#btnradio2').click();
                     return false;
-                } else if (e.which == 39) {
+                }
+                if (e.which == 69) {
                     $('#btnradio3').click();
                     return false;
                 }

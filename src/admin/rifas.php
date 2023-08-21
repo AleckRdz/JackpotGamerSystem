@@ -130,6 +130,14 @@
             });
         });
 
+        //function when modal is hidden to enable radios
+        $(".modal").on("hidden.bs.modal", function() {
+            $("#btnDigitos2").removeAttr("disabled");
+            $("#btnDigitos3").removeAttr("disabled");
+            $("#btnDigitos4").removeAttr("disabled");
+            $("#btnDigitos5").removeAttr("disabled");
+        });
+
         //functions when btnDigitos is clicked
 
         // 2-Digit Tickets
@@ -245,8 +253,8 @@
                 $("#btnDigitos5").click();
             }
             $("#id").val(id);
-            $("#producto").val(producto);
-            $("#cantidad").removeAttr("disabled");
+            $("#producto").val(producto);            
+            $("#cantidad").attr("disabled", "disabled");
             $("#cantidad").val(cantidad);
             $("#precio").val(precio);
             $("#fecha").val(fecha);
@@ -255,6 +263,12 @@
             } else {
                 $("#btnradio2").prop("checked", true);
             }
+
+            //disable radio buttons
+            $("#btnDigitos2").attr("disabled", "disabled");
+            $("#btnDigitos3").attr("disabled", "disabled");
+            $("#btnDigitos4").attr("disabled", "disabled");
+            $("#btnDigitos5").attr("disabled", "disabled");
 
             $("#btnAgregar").html("Actualizar");
             $("#basicModal").modal("show");
@@ -310,20 +324,20 @@
             var producto = $("#producto").val();
             var cantidad = $("#cantidad").val();
             var oportunidades = $("#cantidad option:selected").attr("data-oportunidades");
-            var precio = $("#precio").val();            
+            var precio = $("#precio").val();
             var fecha = $("#fecha").val();
             if ($("#btnradio1").is(':checked')) {
                 var estado = 1;
             } else {
                 var estado = 0;
             }
-            
+
             // Perform basic validation
             if (producto === '' || cantidad === 0 || oportunidades === 0 || precio === '' || fecha === '') {
                 notif("warning", "fas fa-exclamation-circle", "¡Atención!", "Ahora", "complete todos los campos");
                 return;
             }
-            
+
             if ($("#btnDigitos2").is(':checked')) {
                 var digitos = 2;
             } else if ($("#btnDigitos3").is(':checked')) {
@@ -368,7 +382,7 @@
                     cantidad: cantidad,
                     oportunidades: oportunidades,
                     precio: precio,
-                    digitos: digitos,                    
+                    digitos: digitos,
                     fecha: fecha,
                     estado: estado
                 },

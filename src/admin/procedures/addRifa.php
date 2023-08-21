@@ -11,6 +11,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $fechaRifa = $_POST['fecha'];
     $estado = $_POST['estado'];
     $digitos = $_POST['digitos'];
+    switch ($digitos) {
+        case 2:
+            $maxNumber = 99;
+            break;
+        case 3:
+            $maxNumber = 999;
+            break;
+        case 4:
+            $maxNumber = 9999;
+            break;
+        case 5:
+            $maxNumber = 99999;
+            break;
+    }
+    // Generate an array of all possible numbers
+    $allNumbers = range($cantidadBoletos, $maxNumber);    
 
     // Perform additional validation here if needed
     // ...
@@ -41,18 +57,36 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $result = $stmt->execute();
         $idRifa = $db->lastInsertRowID();
         
-        if ($result) {
-            //assign the most recent idRifa to a variable
+        if ($result) {            
             //insert into boletos table the number of rows specified in cantidadBoletos
             for($i = 0; $i < $cantidadBoletos; $i++) {
-                //add zeros to the left of the number until it haves 5 digits
-                $numero = str_pad($i, 5, '0', STR_PAD_LEFT);
+                //insert into column oportunidades a string containing n numbers separated by commas, the last one has a dot at the end, where n is the number of opportunities specified in oportunidades variable, also these numbers are generated randomly and must be only numbers above the number in cantidadBoletos variable, if oportunidades is 1 then insert empty string
+                if ($oportunidades == 1) {
+                    $oportunidadesCol = '';
+                } else {
+                    $selectedNumbers = [];
+                    for ($j = 0; $j < $oportunidades-1; $j++) {
+                        if (empty($allNumbers)) {
+                            break; // No more available unique numbers
+                        }
+
+                        $index = array_rand($allNumbers);
+                        $selectedNumbers[] = $allNumbers[$index];
+                        unset($allNumbers[$index]);
+                    }
+
+                    // Format the selected numbers
+                    $oportunidadesCol = implode(', ', $selectedNumbers) . '.';
+                }
+                
+                //add zeros to the left of the number until it haves n digits
+                $numero = str_pad($i, $digitos, '0', STR_PAD_LEFT);
                 $emptyCol = '';
                 $estado = 0;
                 $query = "INSERT INTO boletos (numero, oportunidades, nombre, telefono, fechaApartado, fechaPagado, estado, edicion, origen) VALUES (:numero, :oportunidades, :nombre, :telefono, :fechaApartado, :fechaPagado, :estado, (SELECT idRifa FROM rifas WHERE idRifa = :idRifa), :origen)";
                 $stmt2 = $db->prepare($query);
                 $stmt2->bindValue(':numero', $numero, SQLITE3_TEXT);
-                $stmt2->bindValue(':oportunidades', $emptyCol, SQLITE3_TEXT);
+                $stmt2->bindValue(':oportunidades', $oportunidadesCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':nombre', $emptyCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':telefono', $emptyCol, SQLITE3_TEXT);
                 $stmt2->bindValue(':fechaApartado', $emptyCol, SQLITE3_TEXT);

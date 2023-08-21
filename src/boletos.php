@@ -108,7 +108,7 @@
             <div class="mt-4">
               <fieldset>
                 <button class="btn btn-generar">Generar</button>
-                <button class="main-button btn btn-apartar-azar" hidden>Apartar números</button>
+                <button class="main-button btn btn-apartar-azar" hidden>Apartar Números</button>
               </fieldset>
             </div>
           </div>
@@ -228,6 +228,13 @@
 
     $(".btn-generar").click(function() {
       var cantidad = $("#cantidad").val();
+      //hide buttons and label
+      $(".btn-apartar-azar").attr("hidden", true);
+      $(".ticket-list-random").prev().attr("hidden", true);
+      //change button text to Generando with a spinner
+      $(".btn-generar").html('<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Generando...');
+      $(".btn-generar").attr("disabled", true);
+      $(".ticket-list-random").html("");
 
       if (cantidad > 0 && cantidad <= 100) {
         $.ajax({
@@ -237,17 +244,30 @@
             cantidad: cantidad
           },
           success: function(response) {
-            $('.ticket-list-random').html(response);
-            // show button
-            $(".btn-apartar-azar").removeAttr("hidden");
-            // show label
-            $(".ticket-list-random").prev().removeAttr("hidden");
-            //change button text to Regenerar
-            $(".btn-generar").text("Volver a Generar");
+            //play a gif then remove it
+            var gifPath = "assets/img/slot.gif"; // Replace with the actual path to your GIF
+            var timestamp = new Date().getTime(); // Generate a unique timestamp
+            var gifUrl = gifPath + "?v=" + timestamp; // Add the timestamp to the GIF's path
+
+            $(".ticket-list-random").html('<img src="' + gifUrl + '" alt="loading" class="gif">');
+            //3 seconds delay
+            setTimeout(function() {
+              //show numbers generated
+              $('.ticket-list-random').html(response);
+              // show button
+              $(".btn-apartar-azar").removeAttr("hidden");
+              // show label
+              $(".ticket-list-random").prev().removeAttr("hidden");
+              //change button text to Regenerar
+              $(".btn-generar").text("Volver a Generar");
+              $(".btn-generar").attr("disabled", false);
+            }, 4000);
           }
         });
       } else {
         notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Seleccione una cantidad válida de boletos a generar.");
+        $(".btn-generar").text("Generar");
+        $(".btn-generar").attr("disabled", false);
       }
     });
 
@@ -259,16 +279,29 @@
 
       for (var i = 0; i < ticketListLength; i++) {
         var ticket = ticketList[i].textContent;
-        ticketListText += ticket + (i === ticketListLength - 1 ? "." : ", ");
+        ticketListText += ticket + (i === ticketListLength - 1 ? "" : ", ");
       }
 
-      $("#modalApartar").modal("show");
-      $(".ticket-list-usuario").html(ticketListText);
+      $.ajax({
+        type: "POST",
+        url: "procedures/getOportunidades.php",
+        data: {
+          numeros: ticketListText
+        },
+        success: function(response) {
+          $('.ticket-list-usuario').html(response);
+          $("#modalApartar").modal("show");
+        },
+        error: function() {
+          notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", "Ocurrió un error al cargar los boletos seleccionados.");
+        }
+      });
+
     });
 
     //function when btn-apartar-azar is clicked to open modal, show numbers generated on modal
     $(".btn-apartar-azar").click(function() {
-      var ticketList = $(".ticket-list-random").text();
+      var ticketList = $(".ticket-list-random").html();
 
       $("#modalApartar").modal("show");
       $(".ticket-list-usuario").html(ticketList);
@@ -282,6 +315,52 @@
       $(".ticket-list-random").prev().attr("hidden", true);
       $(".btn-generar").text("Generar");
       $(".btn-apartar-azar").attr("hidden", true);
+    });
+
+    //on btn-pagar click
+    $(".btn-pagar").click(function() {
+      var nombre = $("#nombre").val();
+      var telefono = $("#telefono").val();
+      var estado = $("#estado").val();
+      //assign all numbers on the table's Número(s) column to a variable
+      var columnValues = [];
+
+      $('.table tr').each(function() {
+        var value = $(this).find('td:eq(0)').text(); // Change 1 to the column index you want
+        if (value.trim() !== '') {
+          columnValues.push(value);
+        }
+      });
+
+      //convert array to string separated by comma and space
+      var ticketListText = columnValues.join(', ');
+
+      if (nombre.length > 0 && telefono.length == 10 && estado != 0) {
+        $.ajax({
+          type: "POST",
+          url: "procedures/apartarBoletos.php",
+          data: {
+            nombre: nombre,
+            telefono: telefono,
+            estado: estado,
+            numeros: ticketListText
+          },
+          success: function(response) {
+            if (response.status === 1) {
+              notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
+              $("#modalApartar").modal("hide");
+              cargarBoletos();
+            } else {
+              notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", response.message);
+            }
+          },
+          error: function() {
+            notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", "Ocurrió un error al apartar los boletos.");
+          }
+        });
+      } else {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese todos los datos solicitados.");
+      }
     });
   });
 

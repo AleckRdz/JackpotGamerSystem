@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindValue(':tipo', $tipo, SQLITE3_NUM);
             $result = $stmt->execute();
         } else if($tipo == 2){
+            date_default_timezone_set('America/Mexico_City');
             $query = "UPDATE boletos SET estado = :tipo, fechaPagado = :fecha WHERE numero = :boleto AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
             $stmt = $db->prepare($query);
             $stmt->bindValue(':boleto', $boleto, SQLITE3_TEXT);

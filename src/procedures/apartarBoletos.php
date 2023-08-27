@@ -23,8 +23,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connect to the database
         $db = new SQLite3($db_path);
+        date_default_timezone_set('America/Mexico_City');
 
-        // Check if the user or email already exists in the 'usuarios' table
+        //check if the boletos are not taken
+        $query = "SELECT numero FROM boletos WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) AND estado = 0";
+        $result = $db->query($query);
+
+        $boletos = array();
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            $boletos[] = $row['numero'];
+        }
+
+        if (count($boletos) != count($numeroArray)) {
+            $response = array('status' => 0, 'message' => 'Algunos boletos ya han sido apartados.');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit();
+        }        
+
+        // apartar el boleto
         $query = "UPDATE boletos SET nombre = :nombre, telefono = :telefono, origen = :origen, fechaApartado = :fecha, estado = 1 WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
         $stmt = $db->prepare($query);
         $stmt->bindValue(':nombre', $nombre, SQLITE3_TEXT);

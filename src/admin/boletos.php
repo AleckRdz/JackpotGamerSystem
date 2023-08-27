@@ -217,7 +217,7 @@
                         $('#boleto').val('');
                     } else {
                         //show error notification
-                        notif("warning", "fa-solid fa-times", "¡Error!", "Ahora", message);
+                        notif("warning", "fa-solid fa-times", "¡Atención!", "Ahora", message);
                     }
                 },
                 error: function() {

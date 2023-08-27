@@ -65,7 +65,7 @@
           <h4>PREGUNTAS <em>FRECUENTES</em></h4>
         </div>
       </div>
-      <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-6 mb-2">
         <div class="popular-item">
           <div class="top-content">
             <div class="right">
@@ -77,7 +77,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-6 mb-2">
         <div class="popular-item">
           <div class="top-content">
             <div class="right">
@@ -87,7 +87,7 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-4 col-sm-6">
+      <div class="col-lg-4 col-sm-6 mb-2">
         <div class="popular-item">
           <div class="top-content">
             <div class="right">

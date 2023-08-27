@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }
 
                     // Format the selected numbers
-                    $oportunidadesCol = implode(', ', $selectedNumbers) . '.';
+                    $oportunidadesCol = implode(', ', $selectedNumbers) . '';
                 }
                 
                 //add zeros to the left of the number until it haves n digits

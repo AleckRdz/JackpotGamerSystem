@@ -21,21 +21,21 @@
   <div class="container d-flex align-items-center justify-content-center">
     <div class="row">
       <div class="col-lg-12">
-        <form id="search-form" name="gs" method="submit" role="search" action="#">
+        <div id="search-form" name="gs" method="submit" role="search" action="">
           <div class="row">
             <div class="col-lg-8">
               <fieldset>
                 <label for="contest" class="form-label">Número de boleto:</label>
-                <input type="text" name="contest" class="searchText" placeholder="Número..." autocomplete="on" required>
+                <input type="text" name="contest" class="searchText" id="buscador" placeholder="Número..." autocomplete="on" required>
               </fieldset>
             </div>
             <div class="col-lg-4">
               <fieldset>
-                <button class="main-button">Buscar</button>
+                <button class="main-button btn-buscar">Buscar</button>
               </fieldset>
             </div>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   </div>
@@ -299,6 +299,37 @@
 
     });
 
+    //function when btn-buscar is clicked
+    $(".btn-buscar").click(function() {
+      var numero = $("#buscador").val();
+
+      if (numero == "") {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese un número de boleto.");
+        $("#buscador").focus();
+        return;
+      }
+
+      $.ajax({
+        type: "POST",
+        url: "procedures/buscarBoleto.php",
+        data: {
+          numero: numero
+        },
+        success: function(response) {
+          response = JSON.parse(response);          
+          if (response.status === 1) {
+            //open a new window and pass data to it to show the ticket
+            window.open("verificador.php?numero=" + numero, "_blank");
+          } else {
+            notif("warning", "fa-solid fa-times-octagon", "¡Atención!", "Ahora", response.message);
+          }
+        },
+        error: function() {
+          notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", "Ocurrió un error al buscar el boleto.");
+        }
+      });
+    });
+
     //function when btn-apartar-azar is clicked to open modal, show numbers generated on modal
     $(".btn-apartar-azar").click(function() {
       var ticketList = $(".ticket-list-random").html();
@@ -322,45 +353,96 @@
       var nombre = $("#nombre").val();
       var telefono = $("#telefono").val();
       var estado = $("#estado").val();
+      var precioBoleto = $(".precio-boleto").text();
+      var precioTotal = 0;
+
+      //validate if nombre and telefono are not empty, also telefono must be 10 digits long
+      if (nombre == "" || telefono == "" || estado == 0) {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese todos los datos solicitados.");
+        return;
+      }
+
+      if (telefono.length != 10) {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese un número telefónico válido (10 dígitos).");
+        return;
+      }
+
       //assign all numbers on the table's Número(s) column to a variable
-      var columnValues = [];
+      var numeros = [];
+      var extras = [];
 
       $('.table tr').each(function() {
         var value = $(this).find('td:eq(0)').text(); // Change 1 to the column index you want
         if (value.trim() !== '') {
-          columnValues.push(value);
+          numeros.push(value);
+        }
+        precioTotal++;
+      });
+
+      $('.table tr').each(function() {
+        var value = $(this).find('td:eq(1)').text(); // Change 1 to the column index you want
+        if (value.trim() !== '') {
+          extras.push(value);
         }
       });
 
       //convert array to string separated by comma and space
-      var ticketListText = columnValues.join(', ');
+      var boletos = numeros.join(', ');
+      var oportunidades = extras.join(', ');
 
-      if (nombre.length > 0 && telefono.length == 10 && estado != 0) {
-        $.ajax({
-          type: "POST",
-          url: "procedures/apartarBoletos.php",
-          data: {
-            nombre: nombre,
-            telefono: telefono,
-            estado: estado,
-            numeros: ticketListText
-          },
-          success: function(response) {
-            if (response.status === 1) {
-              notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
-              $("#modalApartar").modal("hide");
-              cargarBoletos();
-            } else {
-              notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", response.message);
-            }
-          },
-          error: function() {
-            notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", "Ocurrió un error al apartar los boletos.");
-          }
-        });
-      } else {
-        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese todos los datos solicitados.");
+      if (oportunidades == "") {
+        oportunidades = "-";
       }
+
+      precioTotal = (precioTotal - 1) * precioBoleto;
+
+      var message = `Hola, aparté boletos de la rifa 🎮🏆
+————————————
+🎫 *BOLETO(S):* 
+${boletos}
+
+🍀 *OPORTUNIDAD(ES):*
+${oportunidades}
+      
+👤 *NOMBRE:* ${nombre}
+🌐 *ESTADO:* ${estado}
+
+💰 *PRECIO A PAGAR:*
+💲${precioTotal}    
+————————————
+👇 CUENTAS DE PAGO AQUÍ:
+www.jackpotgamermx.w3spaces.com/cuentas.php
+
+⚠ *ATENCIÓN:*
+El siguiente paso es enviar foto del comprobante de pago por aquí.`;
+
+      $.ajax({
+        type: "POST",
+        url: "procedures/apartarBoletos.php",
+        data: {
+          nombre: nombre,
+          telefono: telefono,
+          estado: estado,
+          numeros: boletos
+        },
+        success: function(response) {
+          if (response.status === 1) {
+            notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
+            $("#modalApartar").modal("hide");
+            //reload page
+            setTimeout(function() {
+              location.reload();
+            }, 3000);
+            //redirect to a new page in another window
+            window.open("https://api.whatsapp.com/send/?phone=%2B528341458065&text=" + encodeURIComponent(message) + "&type=phone_number&app_absent=0");
+          } else {
+            notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", response.message);
+          }
+        },
+        error: function() {
+          notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", "Ocurrió un error al apartar los boletos.");
+        }
+      });
     });
   });
 

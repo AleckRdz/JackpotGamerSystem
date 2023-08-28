@@ -49,7 +49,7 @@
     // Check if the session variable is set (user is already logged in)
     if (isset($_SESSION["user_id"])) {
         // Redirect to index.php or any other desired page
-        header("Location: index.php");
+        header("Location: dashboard.php");
         exit();
     }
 

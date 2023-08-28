@@ -3,8 +3,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: flex-start;
-    margin-top: -20px;
-    gap: 1px;
+    margin-top: -30px;
     /* Small space between tickets */
 }
 
@@ -17,7 +16,9 @@
     align-items: center;
     overflow: hidden;
     position: relative;
-    transform: scale(0.7);
+    transform: scale(0.4);
+    /* margin -35 but horizontal -50 */
+    margin: -32px -50px;
     /* Adjust the scale factor as needed */
 }
 
@@ -51,7 +52,7 @@
     color: #fff;
     font-size: 40px;
     line-height: 1.5;
-    padding: 0 15px;
+    padding: 0 17px;
     position: relative;
     text-transform: uppercase;
 }
@@ -60,7 +61,7 @@
 .ticket span:after {
     background: #333;
     color: #aaa;
-    font-size: 15px;
+    font-size: 20px;
     padding: 0 3px;
     position: absolute;
 }
@@ -83,10 +84,11 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    margin-top: 10px;
+    align-items: flex-start;
+    margin: 10px;
 }
 
 .ticket-item {
-    margin-right: 10px;
+    margin-right: -60px;
     /* Add some space between the ticket items */
 }

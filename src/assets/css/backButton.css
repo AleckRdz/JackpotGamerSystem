@@ -1,0 +1,7 @@
+.btn-corner {
+    position: fixed;
+    bottom: 20px;
+    /* Adjust the distance from the bottom */
+    right: 20px;
+    /* Adjust the distance from the right */
+}

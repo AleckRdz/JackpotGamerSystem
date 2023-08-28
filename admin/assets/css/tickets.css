@@ -1,0 +1,92 @@
+.ticket-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-top: -20px;
+    gap: 1px;
+    /* Small space between tickets */
+}
+
+.ticket {
+    background: #333;
+    height: 120px;
+    width: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+    transform: scale(0.7);
+    /* Adjust the scale factor as needed */
+}
+
+.ticket:before {
+    background: #fff;
+    border-radius: 50%;
+    box-shadow:
+        200px 0 0 0 #fff,
+        0 120px 0 0 #fff,
+        200px 120px 0 0 #fff,
+        0 40px 0 -12px #fff,
+        0 60px 0 -12px #fff,
+        0 80px 0 -12px #fff,
+        0 100px 0 -12px #fff,
+        0 40px 0 -12px #fff,
+        200px 40px 0 -12px #fff,
+        200px 60px 0 -12px #fff,
+        200px 80px 0 -12px #fff;
+    content: "";
+    display: block;
+    height: 30px;
+    left: -15px;
+    position: absolute;
+    top: -15px;
+    width: 30px;
+}
+
+.ticket span {
+    border-radius: 10px;
+    border: 2px solid #aaa;
+    color: #fff;
+    font-size: 40px;
+    line-height: 1.5;
+    padding: 0 15px;
+    position: relative;
+    text-transform: uppercase;
+}
+
+.ticket span:before,
+.ticket span:after {
+    background: #333;
+    color: #aaa;
+    font-size: 15px;
+    padding: 0 3px;
+    position: absolute;
+}
+
+.ticket span:before {
+    content: "Jackpot";
+    left: 50%;
+    top: 0;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.ticket span:after {
+    content: "Gamer";
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(50%);
+}
+
+.ticket-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    margin-top: 10px;
+}
+
+.ticket-item {
+    margin-right: 10px;
+    /* Add some space between the ticket items */
+}

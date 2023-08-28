@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/jackpotg/public_html/
-    - /bin/cp -R src $DEPLOYPATH
+    - export DEPLOYPATH=/home/jackpotg/
+    - /bin/cp -R public_html $DEPLOYPATH

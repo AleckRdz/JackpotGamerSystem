@@ -156,6 +156,13 @@
                     });
                 }
             });
+
+            // function when enter key is pressed
+            $(document).keypress(function(e) {
+                if (e.which == 13) {
+                    $(".btn-ingresar").click();
+                }
+            });
         });
     </script>
 </body>

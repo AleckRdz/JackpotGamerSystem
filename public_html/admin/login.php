@@ -1,3 +1,18 @@
+<?php
+session_start(); // Start the session
+
+// Check if the session variable is set (user is already logged in)
+if (isset($_SESSION["user_id"])) {
+    // Redirect to index.php or any other desired page
+    header("Location: dashboard.php");
+    exit();
+}
+
+// Check if there's an error message in the URL query parameter
+if (isset($_GET["error"])) {
+    $error_message = $_GET["error"];
+}
+?>
 <!DOCTYPE html>
 
 <html lang="en" class="light-style customizer-hide" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -43,21 +58,6 @@
 <body>
     <!-- Content -->
 
-    <?php
-    session_start(); // Start the session
-
-    // Check if the session variable is set (user is already logged in)
-    if (isset($_SESSION["user_id"])) {
-        // Redirect to index.php or any other desired page
-        header("Location: dashboard.php");
-        exit();
-    }
-
-    // Check if there's an error message in the URL query parameter
-    if (isset($_GET["error"])) {
-        $error_message = $_GET["error"];
-    }
-    ?>
 
     <div class="container-xxl">
         <div class="authentication-wrapper authentication-basic container-p-y">
@@ -147,7 +147,7 @@
                             var message = response.message;
                             if (status === 1) {
                                 // redirect to index.php
-                                window.location = "index.php";
+                                window.location = "dashboard.php";
                             } else {
                                 // display error message on label
                                 $(".error-label").text(message);

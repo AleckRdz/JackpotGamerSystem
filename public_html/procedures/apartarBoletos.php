@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     try {
         // Connect to the database
         $db = new SQLite3($db_path);
-        date_default_timezone_set('America/Mexico_City');
+        // date_default_timezone_set('America/Mexico_City');
 
         //check if the boletos are not taken
         $query = "SELECT numero FROM boletos WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) AND estado = 0";

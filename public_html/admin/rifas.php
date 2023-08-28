@@ -351,7 +351,7 @@
             }
 
             //validate if the date is older than today but include today
-            date_default_timezone_set('America/Mexico_City');
+            // date_default_timezone_set('America/Mexico_City');
             var today = new Date();
             var date = new Date(fecha);
             if (date < today) {

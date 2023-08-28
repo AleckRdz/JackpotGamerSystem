@@ -1,3 +1,48 @@
+<?php
+session_start(); // Start the session
+
+// Check if the session variable 'user_id' is NOT set (user is not logged in)
+if (!isset($_SESSION["user_id"])) {
+    // Redirect the user to the login page (login.php)
+    header("Location: login.php");
+    exit();
+}
+// Replace 'jackpotGamer.db' with the path to your existing SQLite database file
+$db_path = '../db/jackpotGamer.db';
+
+try {
+    // Connect to the database
+    $db = new SQLite3($db_path);
+
+    // Prepare the SQL statement to retrieve the user's name based on 'user_id'
+    $query = "SELECT id, nombre, rol FROM usuarios WHERE id = :user_id";
+    $stmt = $db->prepare($query);
+    $stmt->bindValue(':user_id', $_SESSION["user_id"], SQLITE3_INTEGER);
+
+    // Execute the statement
+    $result = $stmt->execute();
+    $user = $result->fetchArray(SQLITE3_ASSOC);
+
+    // Get the user's name
+    $user_name = $user["nombre"];
+
+    //get the user's role
+    $user_role = $user["rol"];
+
+    //get the user's id
+    $user_id = $user["id"];
+
+    // Trim the name if it contains more than one word
+    $name_parts = explode(' ', $user_name);
+    if (count($name_parts) > 1) {
+        $formatted_name = $name_parts[0][0] . '. ' . array_pop($name_parts);
+    } else {
+        $formatted_name = $user_name;
+    }
+} catch (Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+?>
 <!DOCTYPE php>
 
 <php lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
@@ -48,51 +93,6 @@
     </head>
 
     <body>
-        <?php
-        session_start(); // Start the session
-
-        // Check if the session variable 'user_id' is NOT set (user is not logged in)
-        if (!isset($_SESSION["user_id"])) {
-            // Redirect the user to the login page (login.php)
-            header("Location: login.php");
-            exit();
-        }
-        // Replace 'jackpotGamer.db' with the path to your existing SQLite database file
-        $db_path = '../db/jackpotGamer.db';
-
-        try {
-            // Connect to the database
-            $db = new SQLite3($db_path);
-
-            // Prepare the SQL statement to retrieve the user's name based on 'user_id'
-            $query = "SELECT id, nombre, rol FROM usuarios WHERE id = :user_id";
-            $stmt = $db->prepare($query);
-            $stmt->bindValue(':user_id', $_SESSION["user_id"], SQLITE3_INTEGER);
-
-            // Execute the statement
-            $result = $stmt->execute();
-            $user = $result->fetchArray(SQLITE3_ASSOC);
-
-            // Get the user's name
-            $user_name = $user["nombre"];
-
-            //get the user's role
-            $user_role = $user["rol"];
-
-            //get the user's id
-            $user_id = $user["id"];
-
-            // Trim the name if it contains more than one word
-            $name_parts = explode(' ', $user_name);
-            if (count($name_parts) > 1) {
-                $formatted_name = $name_parts[0][0] . '. ' . array_pop($name_parts);
-            } else {
-                $formatted_name = $user_name;
-            }
-        } catch (Exception $e) {
-            echo "Error: " . $e->getMessage();
-        }
-        ?>
 
         <!-- Layout wrapper -->
         <div class="layout-wrapper layout-content-navbar">

@@ -28,7 +28,7 @@ try {
         $fechaPagado = $row['fechaPagado'];
         $oportunidades = $row['oportunidades'];
         $pagado = $fechaPagado ? 'SÍ' : 'NO';
-        echo json_encode(array('status' => 1, 'nombre' => $nombre, 'estado' => $estado, 'pagado' => $pagado, 'oportunidades' => $oportunidades));                
+        echo json_encode(array('status' => 1, 'nombre' => $nombre, 'estado' => $estado, 'pagado' => $pagado, 'oportunidades' => $oportunidades));
     } else {
         echo json_encode(array('status' => 0, 'message' => 'No se encontró el boleto.'));
     }

@@ -55,7 +55,7 @@
 
     // Check if there's an error message in the URL query parameter
     if (isset($_GET["error"])) {
-    $error_message = $_GET["error"];
+        $error_message = $_GET["error"];
     }
     ?>
 
@@ -73,7 +73,7 @@
                         <h4 class="mb-2 text-center">¡Bienvenido! 👋</h4>
                         <p class="mb-4">Por favor, inicie sesión para acceder al sistema.</p>
 
-                        <form id="formAuthentication" class="mb-3" action="procedures/auth.php" method="POST">
+                        <div id="formAuthentication" class="mb-3" method="POST">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Correo o nombre de usuario</label>
                                 <input type="text" class="form-control" id="username" name="username" placeholder="Ingrese su correo o usuario..." autofocus />
@@ -87,16 +87,11 @@
                                     <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
                                 </div>
                             </div>
-                            <!-- Display the error message if it exists -->
-                            <?php
-                            if (isset($error_message)) {
-                                echo '<p class="error-label text-danger">' . htmlspecialchars($error_message) . '</p>';
-                            }
-                            ?>
+                            <p class="error-label text-danger"></p>
                             <div class="mb-3">
-                                <button class="btn btn-primary d-grid w-100" type="submit">Ingresar</button>
+                                <button class="btn btn-primary d-grid w-100 btn-ingresar">Ingresar</button>
                             </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
                 <!-- /Register -->
@@ -125,6 +120,44 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+    <script>
+        //function when document ready
+        $(document).ready(function() {
+            // function when btn-ingresar is clicked
+            $(".btn-ingresar").click(function() {
+                // get the username and password
+                var username = $("#username").val();
+                var password = $("#password").val();
+
+                // check if the username and password are empty
+                if (username == "" || password == "") {
+                    alert("Por favor, ingrese su usuario/correo y contraseña.");
+                } else {
+                    // send the username and password to login.php
+                    $.ajax({
+                        url: "procedures/auth.php",
+                        type: "POST",
+                        data: {
+                            username: username,
+                            password: password
+                        },
+                        success: function(response) {
+                            var status = response.status;
+                            var message = response.message;
+                            if (status === 1) {
+                                // redirect to index.php
+                                window.location = "index.php";
+                            } else {
+                                // display error message on label
+                                $(".error-label").text(message);
+                            }
+                        }
+                    });
+                }
+            });
+        });
+    </script>
 </body>
 
 </html>

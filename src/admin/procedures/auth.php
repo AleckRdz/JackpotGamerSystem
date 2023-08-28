@@ -27,23 +27,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Set session variable with the user ID
             $_SESSION["user_id"] = $user["id"];
             
-            // Redirect to index.php or any other desired page
-            header("Location: ../index.php");
-            exit();
+            $response = array('status' => 1, 'message' => '');
         } else {
-            // Invalid credentials, redirect back to login form with error message
-            redirectWithErrorMessage("Usuario o contraseña inválido(s).");
+            // Invalid credentials, return error message
+            $response = array('status' => 0, 'message' => 'Usuario o contraseña incorrectos.');
         }
+        header('Content-Type: application/json');
+        echo json_encode($response);
     } catch (Exception $e) {
-        // Show error message and redirect back to login form
-        redirectWithErrorMessage("Error: " . $e->getMessage());
+        // Show error message
+        $response = array('status' => -1, 'message' => 'Ha ocurrido un error inesperado, intente de nuevo más tarde.');
+        header('Content-Type: application/json');
+        echo json_encode($response);
     }
-}
-
-function redirectWithErrorMessage($message) {
-    // Redirect back to login.php with the error message as a query parameter
-    header("Location: ../login.php?error=" . urlencode($message));
-    exit();
 }
 
 // Close the database connection

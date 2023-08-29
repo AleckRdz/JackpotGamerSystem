@@ -25,24 +25,24 @@
                         <h4 id="lblNombre">-</h4>
                     </div>
                     <div class="flight-info row">
-                        <div class="col-xs-4 col-md-4">
+                        <div class="col">
                             <p>ESTADO</p>
                             <h4 id="lblEstado">-</h4>
                         </div>
                     </div>
                     <div class="flight-info row">
-                        <div class="col-xs-4 col-md-4">
+                        <div class="col-6">
                             <p>NÚMERO</p>
                             <h4 id="lblNumero">-</h4>
                         </div>
-                        <div class="col-xs-4 col-md-4">
+                        <div class="col-6">
                             <p>PAGADO</p>
                             <h4 id="lblPagado">-</h4>
                         </div>
                     </div>
                     <div class="flight-info row">
                         <div class="col-xs-12 col-md-12">
-                            <p>OPORTUNIDADES</p>
+                            <p>OPORTUNIDADES EXTRA</p>
                             <h4 id="lblOportunidades">-</h4>
                         </div>
                     </div>

@@ -9,7 +9,7 @@
         <!-- button to toggle modal -->
         <div class="buttons">
           <div class="border-button">
-            <a data-bs-toggle="modal" data-bs-target="#modalAzar" style="color: white;border-color: white;">Elegir al Azar</a>
+            <a class="btn" data-bs-toggle="modal" data-bs-target="#modalAzar" style="color: white;border-color: white;">Elegir al Azar</a>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@
   <div class="row">
     <div class="col-lg-12 mt-4">
       <div class="section-heading text-center">
-        <a href="#boletos" class="btn btn-primary btn-regresar"><i class="fa-solid fa-arrow-up"></i></a>
+        <a href="#boletos" id="btnBack" class="btn btn-primary btn-regresar"><i class="fa-solid fa-arrow-up"></i></a>
       </div>
     </div>
   </div>
@@ -99,13 +99,13 @@
             </select>
           </div>
           <div class="row">
-            <div class="mt-3">
+            <div class="mt-3 mb-3">
               <label for="cantidad" class="form-label" hidden>Boletos:</label>
               <div class="ticket-list-random"></div>
             </div>
           </div>
           <div class="row text-center">
-            <div class="mt-4">
+            <div class="mt-4 mb-3">
               <fieldset>
                 <button class="btn btn-generar">Generar</button>
                 <button class="main-button btn btn-apartar-azar" hidden>Apartar Números</button>
@@ -205,9 +205,11 @@
     // show button if there are tickets selected
     $(".ticket-list").on("DOMSubtreeModified", function() {
       if ($(".ticket-list").children().length > 0) {
-        $(".btn-apartar").removeAttr("hidden");
+        $(".btn-apartar").removeAttr("hidden");        
+        $("#btnBack").addClass("btn-pulse");
       } else {
         $(".btn-apartar").attr("hidden", true);
+        $("#btnBack").removeClass("btn-pulse");
       }
     });
 
@@ -401,7 +403,7 @@
 🎫 *BOLETO(S):* 
 ${boletos}
 
-🍀 *OPORTUNIDAD(ES):*
+🍀 *OPORTUNIDAD(ES) EXTRA:*
 ${oportunidades}
       
 👤 *NOMBRE:* ${nombre}
@@ -411,7 +413,7 @@ ${oportunidades}
 💲${precioTotal}    
 ————————————
 👇 CUENTAS DE PAGO AQUÍ:
-www.jackpotgamermx.w3spaces.com/cuentas.php
+www.jackpotgamermx.com/cuentas.php
 
 ⚠ *ATENCIÓN:*
 El siguiente paso es enviar foto del comprobante de pago por aquí.`;

@@ -28,7 +28,7 @@ try {
     } else {
         $numRows = count($rows);
 
-        echo '<table class="table table-responsive table-hover table-sm"><thead><tr><th scope="col" width="25%" class="text-center">Número(s)</th><th scope="col">Oportunidades Extra</th></tr></thead><tbody>';
+        echo '<table class="table table-responsive table-hover table-sm"><thead><tr><th scope="col" width="25%" class="text-center">Número(s)</th><th scope="col">Oportunidad(es) Extra</th></tr></thead><tbody>';
         // Print the rows' data
         for ($i = 0; $i < $numRows; $i++) {
             $numero = $rows[$i]['numero'];

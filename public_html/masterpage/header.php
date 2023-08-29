@@ -28,6 +28,28 @@
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+        <style>
+            @keyframes pulse {
+                0% {
+                    transform: scale(1);
+                }
+
+                50% {
+                    transform: scale(1.3);
+                }
+
+                100% {
+                    transform: scale(1);
+                }
+            }
+
+            /* Apply the pulse animation to a button with a custom class */
+            .btn-pulse {
+                animation: pulse 1.5s infinite;
+                /* Adjust the duration and other properties as needed */
+            }
+        </style>
+
     </head>
 
     <body>

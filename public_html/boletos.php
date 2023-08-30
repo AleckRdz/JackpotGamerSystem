@@ -31,7 +31,7 @@
             </div>
             <div class="col-lg-4">
               <fieldset>
-                <button class="main-button btn-buscar">Buscar</button>
+                <button class="main-button btn-buscar text-center">Buscar</button>
               </fieldset>
             </div>
           </div>
@@ -105,10 +105,10 @@
             </div>
           </div>
           <div class="row text-center">
-            <div class="mt-4 mb-3">
+            <div class="mt-4">
               <fieldset>
-                <button class="btn btn-generar">Generar</button>
-                <button class="main-button btn btn-apartar-azar" hidden>Apartar Números</button>
+                <button class="btn btn-generar mb-2">Generar</button>
+                <button class="main-button btn btn-apartar-azar mb-2" hidden>Apartar Números</button>
               </fieldset>
             </div>
           </div>
@@ -205,7 +205,7 @@
     // show button if there are tickets selected
     $(".ticket-list").on("DOMSubtreeModified", function() {
       if ($(".ticket-list").children().length > 0) {
-        $(".btn-apartar").removeAttr("hidden");        
+        $(".btn-apartar").removeAttr("hidden");
         $("#btnBack").addClass("btn-pulse");
       } else {
         $(".btn-apartar").attr("hidden", true);
@@ -318,7 +318,7 @@
           numero: numero
         },
         success: function(response) {
-          response = JSON.parse(response);          
+          response = JSON.parse(response);
           if (response.status === 1) {
             //open a new window and pass data to it to show the ticket
             window.open("verificador.php?numero=" + numero, "_blank");

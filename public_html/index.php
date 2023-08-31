@@ -154,7 +154,7 @@
         <div class="info-item">
           <i class="fa fa-envelope"></i>
           <h4>Correo Electrónico</h4>
-          <span><a href="mailto: gamersorteomx@gmail.com">gamersorteomx@gmail.com</a></span>
+          <span><a href="mailto: soporte@jackpotgamermx.com">soporte@jackpotgamermx.com</a></span>
         </div>
       </div>
       <div class="col-lg-4">

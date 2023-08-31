@@ -43,9 +43,9 @@ try {
     echo "Error: " . $e->getMessage();
 }
 ?>
-<!DOCTYPE php>
+<!DOCTYPE html>
 
-<php lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="assets/" data-template="vertical-menu-template-free">
 
     <head>
         <meta charset="utf-8" />

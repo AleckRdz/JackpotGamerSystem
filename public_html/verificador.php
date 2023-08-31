@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Boleto</title>
+    <link rel="icon" href="assets/img/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/fontawesome.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -71,7 +72,7 @@
                 if (response.status == 1) {
                     $('#lblNombre').html(response.nombre);
                     $('#lblEstado').html(response.estado);
-                    $('#lblNumero').html(numero);
+                    $('#lblNumero').html(response.numero);
                     $('#lblPagado').html(response.pagado);
                     $('#lblOportunidades').html(response.oportunidades);
                 } else {

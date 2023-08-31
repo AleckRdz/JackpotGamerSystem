@@ -25,21 +25,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $db = new SQLite3($db_path);
         // date_default_timezone_set('America/Mexico_City');
 
-        //check if the boletos are not taken
-        $query = "SELECT numero FROM boletos WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) AND estado = 0";
+        //check if the boletos are taken
+        $query = "SELECT numero FROM boletos WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1) AND estado != 0";
         $result = $db->query($query);
 
         $boletos = array();
         while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             $boletos[] = $row['numero'];
         }
-
-        if (count($boletos) != count($numeroArray)) {
-            $response = array('status' => 0, 'message' => 'Algunos boletos ya han sido apartados.');
+        
+        if (count($boletos) > 1) {
+            $response = array('status' => 0, 'message' => 'Los boletos ' . implode(', ', $boletos) . ' acaban de ser apartados por alguien más, intente con otros.');
             header('Content-Type: application/json');
             echo json_encode($response);
             exit();
-        }        
+        }
+        
+        if (count($boletos) > 0) {
+            $response = array('status' => 0, 'message' => 'El boleto ' . implode(', ', $boletos) . ' acaba de ser apartado por alguien más, intente con otro.');
+            header('Content-Type: application/json');
+            echo json_encode($response);
+            exit();
+        }
 
         // apartar el boleto
         $query = "UPDATE boletos SET nombre = :nombre, telefono = :telefono, origen = :origen, fechaApartado = :fecha, estado = 1 WHERE numero IN ($numeroValues) AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";

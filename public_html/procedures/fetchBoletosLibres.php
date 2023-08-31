@@ -42,22 +42,6 @@ try {
         }
     }
 
-
-    //if the query returns no results, show a message
-    if ($result->fetchArray() == false) {
-        echo '<div class="alert alert-danger" role="alert">No hay boletos disponibles.</div>';
-    } else {
-        echo '<div class="ticket-container">';
-        // Iterate over the results and generate the table rows dynamically
-        while ($boleto = $result->fetchArray(SQLITE3_ASSOC)) {
-            //assign values to variables            
-            $numero = $boleto['numero'];
-            echo '<div class="ticket" onclick="moverTicket(this);">';
-            echo '<span>' . $numero . '</span>';
-            echo '</div>';
-        }
-        echo "</div>";
-    }
     //query to get the number of boletos with status 0 (available)
     $query = "SELECT COUNT(*) AS total FROM boletos WHERE estado = 0 AND edicion = (SELECT idRifa FROM rifas WHERE estado = 1)";
     $result = $db->query($query);

@@ -17,11 +17,13 @@
   </div>
 </div>
 
+<!-- verificador de boletos -->
 <div class="search-form" id="boletos">
   <div class="container d-flex align-items-center justify-content-center">
     <div class="row">
       <div class="col-lg-12">
         <div id="search-form" name="gs" method="submit" role="search" action="">
+          <h4 class="text-center mb-3">Verificador de Boletos</h4>
           <div class="row">
             <div class="col-lg-8">
               <fieldset>
@@ -31,7 +33,7 @@
             </div>
             <div class="col-lg-4">
               <fieldset>
-                <button class="main-button btn-buscar text-center">Buscar</button>
+                <button class="main-button btn-buscar">Buscar</button>
               </fieldset>
             </div>
           </div>
@@ -42,6 +44,8 @@
 </div>
 <br>
 
+
+<!-- área de boletos -->
 <div class="container">
   <div class="row">
     <div class="col-lg-12 mt-4">
@@ -62,6 +66,18 @@
   <div class="ticket-container" id="contenedor"></div>
 </div>
 
+<!-- botón de bajar -->
+<div class="container">
+  <div class="row">
+    <div class="col-lg-12 mt-4">
+      <div class="section-heading text-center">
+        <a href="#boletos" id="btnDown" class="btn btn-primary btn-bajar"><i class="fa-solid fa-arrow-down"></i> Lista de boletos <i class="fa-solid fa-arrow-down"></i></a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- botón de subir -->
 <div class="container">
   <div class="row">
     <div class="col-lg-12 mt-4">
@@ -221,9 +237,26 @@
         const rect = boletosSection.getBoundingClientRect();
 
         if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+          returnButton.classList.add("btn-corner");          
+        } else {
+          returnButton.classList.remove("btn-corner");          
+        }
+      }
+    });
+    
+    document.addEventListener("scroll", function() {
+      const boletosSection = document.querySelector("#boletos");
+      const returnButton = document.querySelector(".btn-bajar");
+      
+      if (boletosSection && returnButton) {
+        const rect = boletosSection.getBoundingClientRect();
+        
+        if (rect.top > window.innerHeight && rect.bottom >= 0) {
           returnButton.classList.add("btn-corner");
+          $(".btn-bajar").removeAttr("hidden");
         } else {
           returnButton.classList.remove("btn-corner");
+          $(".btn-bajar").attr("hidden", true);
         }
       }
     });
@@ -438,7 +471,7 @@ El siguiente paso es enviar foto del comprobante de pago por aquí.`;
             //redirect to a new page in another window
             window.open("https://api.whatsapp.com/send/?phone=%2B528341458065&text=" + encodeURIComponent(message) + "&type=phone_number&app_absent=0");
           } else {
-            notif("danger", "fa-solid fa-times-octagon", "¡Error!", "Ahora", response.message);
+            notif("warning", "fa-solid fa-times-octagon", "¡Atención!", "Ahora", response.message);
           }
         },
         error: function() {

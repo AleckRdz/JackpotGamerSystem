@@ -51,7 +51,7 @@
                 <div class="footer">
                     <div class="disclaimer">Las probabilidades son 0 solamente cuando no compras boleto.</div>
                 </div>
-            </div>
+            </div>            
         </div>
     </div>
 </body>
@@ -81,7 +81,6 @@
             }
         });
     });
-
 </script>
 
 </html>

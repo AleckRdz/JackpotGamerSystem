@@ -28,7 +28,7 @@
             <div class="col-lg-8">
               <fieldset>
                 <label for="contest" class="form-label">Número de boleto:</label>
-                <input type="text" name="contest" class="searchText" id="buscador" placeholder="Número..." autocomplete="on" required>
+                <input type="number" name="contest" class="searchText" id="buscador" placeholder="Número..." autocomplete="on" required>
               </fieldset>
             </div>
             <div class="col-lg-4">
@@ -152,7 +152,7 @@
         <div class="row">
           <div class="col-lg-6 mt-3">
             <label for="telefono" class="form-label">Teléfono:</label>
-            <input type="tel" name="telefono" id="telefono" class="form-control" placeholder="Ingrese su número telefónico...">
+            <input type="text" name="telefono" id="telefono" maxlength="10" class="form-control" placeholder="Ingrese su número telefónico...">
           </div>
           <div class="col-lg-6 mt-3">
             <label for="estado" class="form-label">Estado:</label>
@@ -217,6 +217,7 @@
 <script>
   $(document).ready(function() {
     cargarBoletos();
+    getDigits();
 
     // show button if there are tickets selected
     $(".ticket-list").on("DOMSubtreeModified", function() {
@@ -229,6 +230,26 @@
       }
     });
 
+    //function to prevent numbers in #nombre input
+    $("#nombre").on("keypress", function(event) {
+      var regex = new RegExp("^[a-zA-Z ]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
+    //function to prevent letters in #telefono input
+    $("#telefono").on("keypress", function(event) {
+      var regex = new RegExp("^[0-9]+$");
+      var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+      if (!regex.test(key)) {
+        event.preventDefault();
+        return false;
+      }
+    });
+
     document.addEventListener("scroll", function() {
       const boletosSection = document.querySelector("#contenedor");
       const returnButton = document.querySelector(".btn-regresar");
@@ -237,20 +258,20 @@
         const rect = boletosSection.getBoundingClientRect();
 
         if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-          returnButton.classList.add("btn-corner");          
+          returnButton.classList.add("btn-corner");
         } else {
-          returnButton.classList.remove("btn-corner");          
+          returnButton.classList.remove("btn-corner");
         }
       }
     });
-    
+
     document.addEventListener("scroll", function() {
       const boletosSection = document.querySelector("#boletos");
       const returnButton = document.querySelector(".btn-bajar");
-      
+
       if (boletosSection && returnButton) {
         const rect = boletosSection.getBoundingClientRect();
-        
+
         if (rect.top > window.innerHeight && rect.bottom >= 0) {
           returnButton.classList.add("btn-corner");
           $(".btn-bajar").removeAttr("hidden");
@@ -337,9 +358,16 @@
     //function when btn-buscar is clicked
     $(".btn-buscar").click(function() {
       var numero = $("#buscador").val();
+      var digitos = $("#buscador").attr("data-digits");
 
       if (numero == "") {
         notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Ingrese un número de boleto.");
+        $("#buscador").focus();
+        return;
+      }
+
+      if (numero.length != digitos) {
+        notif("warning", "fa-solid fa-triangle-exclamation", "¡Atención!", "Ahora", "Los boletos son de " + digitos + " dígitos.");
         $("#buscador").focus();
         return;
       }
@@ -423,22 +451,31 @@
 
       //convert array to string separated by comma and space
       var boletos = numeros.join(', ');
-      var oportunidades = extras.join(', ');
-
-      if (oportunidades == "") {
-        oportunidades = "-";
-      }
-
-      precioTotal = (precioTotal - 1) * precioBoleto;
-
-      var message = `Hola, aparté boletos de la rifa 🎮🏆
+      
+      $.ajax({
+        type: "POST",
+        url: "procedures/apartarBoletos.php",
+        data: {
+          nombre: nombre,
+          telefono: telefono,
+          estado: estado,
+          numeros: boletos
+        },
+        success: function(response) {    
+          if (response.status === 1) {
+            notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
+            $("#modalApartar").modal("hide");
+            var oportunidades = response.oportunidades;
+            var precioTotal = response.total;
+            //redirect to whatsapp
+var message = `Hola, aparté boletos de la rifa 🎮🏆
 ————————————
 🎫 *BOLETO(S):* 
 ${boletos}
 
 🍀 *OPORTUNIDAD(ES) EXTRA:*
 ${oportunidades}
-      
+
 👤 *NOMBRE:* ${nombre}
 🌐 *ESTADO:* ${estado}
 
@@ -450,26 +487,11 @@ www.jackpotgamermx.com/cuentas.php
 
 ⚠ *ATENCIÓN:*
 El siguiente paso es enviar foto del comprobante de pago por aquí.`;
-
-      $.ajax({
-        type: "POST",
-        url: "procedures/apartarBoletos.php",
-        data: {
-          nombre: nombre,
-          telefono: telefono,
-          estado: estado,
-          numeros: boletos
-        },
-        success: function(response) {
-          if (response.status === 1) {
-            notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
-            $("#modalApartar").modal("hide");
+            window.open("https://api.whatsapp.com/send/?phone=%2B528341458065&text=" + encodeURIComponent(message) + "&type=phone_number&app_absent=0");
             //reload page
             setTimeout(function() {
               location.reload();
             }, 3000);
-            //redirect to a new page in another window
-            window.open("https://api.whatsapp.com/send/?phone=%2B528341458065&text=" + encodeURIComponent(message) + "&type=phone_number&app_absent=0");
           } else {
             notif("warning", "fa-solid fa-times-octagon", "¡Atención!", "Ahora", response.message);
           }
@@ -511,6 +533,21 @@ El siguiente paso es enviar foto del comprobante de pago por aquí.`;
       data: $(this).serialize(),
       success: function(response) {
         $('.ticket-container').html(response);
+      }
+    });
+  }
+
+  //function to get the number of digits from the active rifa
+  function getDigits() {
+    $.ajax({
+      type: "POST",
+      url: "procedures/getDigits.php",
+      success: function(response) {
+        response = JSON.parse(response);
+        if (response.status === 1) {
+          //assign the value to the input data-digits
+          $("#buscador").attr("data-digits", response.digitos);
+        }
       }
     });
   }

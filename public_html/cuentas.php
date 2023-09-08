@@ -19,24 +19,24 @@
                                         <ol>
                                             <li class="fw-bold"><b class="text-primary">BANCO:</b> BBVA</li>
                                             <li class="fw-bold"><b class="text-primary">NOMBRE:</b> David Telles</li>
-                                            <li class="fw-bold"><b class="text-primary">NÚMERO:</b> 4152 3141 4511 5674 (tarjeta)</li>
-                                            <li class="fw-bold"><b class="text-primary">CLABE:</b> 012 180 01587882798 1</li>
+                                            <li class="fw-bold"><b class="text-primary">TARJETA:</b> 4152 3141 4511 5674</li>
+                                            <li class="fw-bold"><b class="text-primary">CLABE:</b> 012180015878827981</li>
                                         </ol>
                                     </div>
                                     <div class="col-xs-12 mt-3 col-md-6" id="hsbcData">
                                         <ol>
                                             <li class="fw-bold"><b class="text-warning">BANCO:</b> HSBC</li>
                                             <li class="fw-bold"><b class="text-warning">NOMBRE:</b> David Telles</li>
-                                            <li class="fw-bold"><b class="text-warning">NÚMERO:</b> 4213 1661 0789 8607 (tarjeta)</li>
+                                            <li class="fw-bold"><b class="text-warning">TARJETA:</b> 4213 1661 0789 8607</li>
                                             <li class="fw-bold"><b class="text-warning">CLABE:</b> 021810064992320197</li>
                                         </ol>
                                     </div>
                                 </div>
                                 <br>
-                                <p class="text-center"><span class="text-success">-> TRANSFERENCIAS, CAJERO, OXXO, 7ELEVEN, FARMACIAS <-</span></p>
+                                <p class="text-center"><span class="text-success">->TRANSFERENCIAS, CAJERO, OXXO, 7ELEVEN, FARMACIAS<-</span></p>
                                 <p class="text-center"><span class="text-danger text-underline"><u>SI ALGUNA CUENTA APARECE SATURADA FAVOR DE INTENTAR CON LA OTRA</u></span></p>
-                                <h4>Jackpotgamermx 2023</h4>
-                                <span>Ciudad Victoria, Tamps.</span>
+                                <!-- <h4>Jackpotgamermx 2023</h4>
+                                <span>Ciudad Victoria, Tamps.</span> -->
                                 <!-- <div class="image">
                                         <img src="assets/img/jackpotGamer.jpg" alt="logoJackpotGamer">
                                     </div> -->

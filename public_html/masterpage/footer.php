@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-12">
-                <p><a href="https://www.facebook.com/Jackpotgamermx">Jackpotgamermx</a>® 2023 - Ciudad Victoria, Tamps. - Todos los derechos reservados.
+                <p><a href="https://www.facebook.com/Jackpotgamermx">Jackpotgamermx</a> 2023 - Ciudad Victoria, Tamps.
 
                     <!-- Design: <a title="CSS Templates" rel="sponsored" href="https://templatemo.com/page/1" target="_blank">TemplateMo</a> Distribution: <a title="CSS Templatesss" rel="sponsored" href="https://themewagon.com" target="_blank">ThemeWagon</a></p> -->
             </div>

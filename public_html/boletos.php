@@ -5,33 +5,27 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 header-text">
         <h2>Participa en las rifas de <em>Jackpot GAMER</em></h2>
-        <p>Puedes consultar algún número de boleto y comprobar el estado actual del boleto, seleccionar los boletos de la lista o generar una elección de boletos al azar.</p>
-        <!-- button to toggle modal -->
-        <div class="buttons">
-          <div class="border-button">
-            <a class="btn" data-bs-toggle="modal" data-bs-target="#modalAzar" style="color: white;border-color: white;">Elegir al Azar</a>
-          </div>
-        </div>
+        <p>Puedes consultar algún número de boleto y comprobar el estado actual del boleto, seleccionar los boletos de la lista o generar una elección de boletos al azar.</p>        
       </div>
     </div>
   </div>
 </div>
 
 <!-- verificador de boletos -->
-<div class="search-form" id="boletos">
+<div class="search-form mb-5">
   <div class="container d-flex align-items-center justify-content-center">
     <div class="row">
       <div class="col-lg-12">
         <div id="search-form" name="gs" method="submit" role="search" action="">
           <h4 class="text-center mb-3">Verificador de Boletos</h4>
           <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-8 col-md-12">
               <fieldset>
                 <label for="contest" class="form-label">Número de boleto:</label>
                 <input type="number" name="contest" class="searchText" id="buscador" placeholder="Número..." autocomplete="on" required>
               </fieldset>
             </div>
-            <div class="col-lg-4">
+            <div class="col-lg-4 col-md-12 text-center">
               <fieldset>
                 <button class="main-button btn-buscar">Buscar</button>
               </fieldset>
@@ -42,11 +36,49 @@
     </div>
   </div>
 </div>
-<br>
 
+<!-- premios section -->
+<section class="testimonials" id="sobreNosotros" style="background-image: url(assets/img/fondoSection.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="col-lg-8 offset-lg-2">
+          <div class="item" style="background-color: white;">
+            <div class="section-heading text-center outlined-text mb-4">
+              <h4>PREMIOS DEL<em> SORTEO</em></h4>
+            </div>
+            <div class="content">
+              <div class="left-content">
+                <p>Premio mayor:</p>
+                <p>10 de Octubre del 2023</p>
+                <ul>
+                  <li>- PC AMD Radeon Rx 6600, Ryzen 5 3600, 16gb RAM, SSD 500gb.</li>
+                  <li>- Monitor Gamer 27" Balam Rush Ultra Odyssey 165hz FHD.</li>                  
+                  <li>- Mouse Óptico Razer Naga Trinity.</li>
+                  <li>- Teclado Gamer HyperX Alloy Elite 2.</li>
+                  <li>- Mouse Pad Gamer Antideslizante 80 x 30cm.</li>
+                </ul>
+                <span>______________________________________</span>
+                <p>Presorteo:</p>
+                <p>3 de Octubre del 2023</p>
+                <ul>
+                  <li>- Silla Gamer Reclinable, Ajustable, Giratoria, Ergonómica.</li>
+                </ul>                  
+                <!-- <h4>Jackpotgamermx® 2023</h4>
+                <span>Ciudad Victoria, Tamps.</span> -->
+              </div>
+              <div class="image">
+                <img src="assets/img/premioOctubre23.jpeg" alt="premio jackpotGamer">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
 
 <!-- área de boletos -->
-<div class="container">
+<div class="container" id="boletos" style="padding-top:60px">
   <div class="row">
     <div class="col-lg-12 mt-4">
       <div class="section-heading text-center">
@@ -57,6 +89,7 @@
         <h6 class="text-muted">Boletos seleccionados: <b><span class="contador-boletos">-</span></b></h6>
         <h6 class="text-muted">Precio a pagar: <b>$<span class="precio-lista">-</span></b></h6>
         <div class="ticket-list"></div>
+        <div class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalAzar">Elegir al Azar</div>
         <div class="btn btn-primary btn-apartar" hidden>Apartar</div>
         <hr>
         <h6 class="text-muted"><b>Atención:</b> Para seleccionar o retirar tiene que presionar el boleto, se muestran solamente un máximo de 500 boletos.</h6>
@@ -82,7 +115,7 @@
   <div class="row">
     <div class="col-lg-12 mt-4">
       <div class="section-heading text-center">
-        <a href="#boletos" id="btnBack" class="btn btn-primary btn-regresar"><i class="fa-solid fa-arrow-up"></i></a>
+        <a href="#boletos" id="btnUp" class="btn btn-primary btn-regresar"><i class="fa-solid fa-arrow-up"></i></a>
       </div>
     </div>
   </div>
@@ -223,10 +256,10 @@
     $(".ticket-list").on("DOMSubtreeModified", function() {
       if ($(".ticket-list").children().length > 0) {
         $(".btn-apartar").removeAttr("hidden");
-        $("#btnBack").addClass("btn-pulse");
+        $("#btnUp").addClass("btn-pulse");
       } else {
         $(".btn-apartar").attr("hidden", true);
-        $("#btnBack").removeClass("btn-pulse");
+        $("#btnUp").removeClass("btn-pulse");
       }
     });
 
@@ -257,7 +290,7 @@
       if (boletosSection && returnButton) {
         const rect = boletosSection.getBoundingClientRect();
 
-        if (rect.top <= window.innerHeight && rect.bottom >= 0) {
+        if (rect.top < window.innerHeight && rect.bottom >= 0) {
           returnButton.classList.add("btn-corner");
         } else {
           returnButton.classList.remove("btn-corner");
@@ -266,7 +299,7 @@
     });
 
     document.addEventListener("scroll", function() {
-      const boletosSection = document.querySelector("#boletos");
+      const boletosSection = document.querySelector("#contenedor");
       const returnButton = document.querySelector(".btn-bajar");
 
       if (boletosSection && returnButton) {

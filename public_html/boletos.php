@@ -5,7 +5,7 @@
     <div class="row">
       <div class="col-lg-8 offset-lg-2 header-text">
         <h2>Participa en las rifas de <em>Jackpot GAMER</em></h2>
-        <p>Puedes consultar algún número de boleto y comprobar el estado actual del boleto, seleccionar los boletos de la lista o generar una elección de boletos al azar.</p>        
+        <p>Puedes consultar algún número de boleto y comprobar el estado actual del boleto, seleccionar los boletos de la lista o generar una elección de boletos al azar.</p>
       </div>
     </div>
   </div>
@@ -53,7 +53,7 @@
                 <p>10 de Octubre del 2023</p>
                 <ul>
                   <li>- PC AMD Radeon Rx 6600, Ryzen 5 3600, 16gb RAM, SSD 500gb.</li>
-                  <li>- Monitor Gamer 27" Balam Rush Ultra Odyssey 165hz FHD.</li>                  
+                  <li>- Monitor Gamer 27" Balam Rush Ultra Odyssey 165hz FHD.</li>
                   <li>- Mouse Óptico Razer Naga Trinity.</li>
                   <li>- Teclado Gamer HyperX Alloy Elite 2.</li>
                   <li>- Mouse Pad Gamer Antideslizante 80 x 30cm.</li>
@@ -63,7 +63,7 @@
                 <p>3 de Octubre del 2023</p>
                 <ul>
                   <li>- Silla Gamer Reclinable, Ajustable, Giratoria, Ergonómica.</li>
-                </ul>                  
+                </ul>
                 <!-- <h4>Jackpotgamermx® 2023</h4>
                 <span>Ciudad Victoria, Tamps.</span> -->
               </div>
@@ -484,7 +484,7 @@
 
       //convert array to string separated by comma and space
       var boletos = numeros.join(', ');
-      
+
       $.ajax({
         type: "POST",
         url: "procedures/apartarBoletos.php",
@@ -494,14 +494,14 @@
           estado: estado,
           numeros: boletos
         },
-        success: function(response) {    
+        success: function(response) {
           if (response.status === 1) {
             notif("success", "fa-solid fa-check", "¡Éxito!", "Ahora", response.message);
             $("#modalApartar").modal("hide");
             var oportunidades = response.oportunidades;
             var precioTotal = response.total;
             //redirect to whatsapp
-var message = `Hola, aparté boletos de la rifa 🎮🏆
+            var message = `Hola, aparté boletos de la rifa 🎮🏆
 ————————————
 🎫 *BOLETO(S):* 
 ${boletos}
